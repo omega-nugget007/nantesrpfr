@@ -5,7 +5,7 @@ const app = express();
 
 const CLIENT_ID = "1444348481732083824";
 const CLIENT_SECRET = "TpmJ_qClgdE7P_oGNKlV0GYDBJhk0yCG";
-const REDIRECT_URI = "http://localhost:3000/callback";
+const REDIRECT_URI = "https://nantesrpfr.onrender.com/callback";
 const TARGET_GUILD_ID = "1386848639732809759";
 
 // Servir les fichiers statiques (index.html, index.css)

@@ -24,7 +24,7 @@
     const token = localStorage.getItem("discord_token");
     if (!token) {
       // Pas connecté → redirection vers ton backend (ngrok ou localhost)
-      window.location.href = " https://variatively-lathery-latoria.ngrok-free.dev";
+      window.location.href = "https://nantesrpfr.onrender.com";
     } else {
       document.getElementById("status").innerText = "✅ Connecté via Discord";
     }
@@ -32,7 +32,7 @@
     // Fonction de déconnexion
     function logout() {
       localStorage.removeItem("discord_token");
-      window.location.href = " https://variatively-lathery-latoria.ngrok-free.dev";
+      window.location.href = "https://nantesrpfr.onrender.com";
       // ou vers ton URL ngrok si tu veux forcer la reconnexion externe
     }
   </script>
