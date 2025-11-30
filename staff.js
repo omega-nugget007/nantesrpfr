@@ -3,8 +3,8 @@ const router = express.Router();
 
 // Simule une "base de données" staff
 const staffDB = [
-  { username: "Maxime", code: "SECRET123" },
-  { username: "AdminUser", code: "ADMIN456" }
+  { username: "emyx_gamer", code: "1212" },
+  { username: "Juliandts", code: "123900" }
 ];
 
 // Vérification: POST /staff-login
