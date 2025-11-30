@@ -7,6 +7,9 @@ const CLIENT_ID = "1444348481732083824";
 const CLIENT_SECRET = "TpmJ_qClgdE7P_oGNKlV0GYDBJhk0yCG";
 const REDIRECT_URI = "https://nantesrpfr.onrender.com/callback";
 const TARGET_GUILD_ID = "1386848639732809759";
+const staffRoutes = require("./staff-login");
+app.use("/", staffRoutes);
+
 
 // Servir les fichiers statiques (index.html, index.css)
 app.use(express.static(path.join(__dirname, "public")));
