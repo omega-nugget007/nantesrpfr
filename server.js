@@ -7,14 +7,17 @@ const CLIENT_ID = "1444348481732083824";
 const CLIENT_SECRET = "TpmJ_qClgdE7P_oGNKlV0GYDBJhk0yCG";
 const REDIRECT_URI = "https://nantesrpfr.onrender.com/callback";
 const TARGET_GUILD_ID = "1386848639732809759";
+
+// Middleware pour lire les formulaires et JSON
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// Servir les fichiers statiques (menu.html, staff-login.html, etc.)
+app.use(express.static(path.join(__dirname, "public")));
+
+// Importer et brancher les routes staff
 const staffRoutes = require("./staff");
 app.use("/", staffRoutes);
-
-
-// Servir les fichiers statiques (index.html, index.css)
-app.use(express.static(path.join(__dirname, "public")));
-app.use(express.urlencoded({ extended: true }));
-
 
 // Route pour afficher Oauth.html (page de connexion)
 app.get("/", (req, res) => {
@@ -59,7 +62,7 @@ app.get("/callback", async (req, res) => {
     const isInTargetGuild = guilds.some(g => g.id === TARGET_GUILD_ID);
 
     if (isInTargetGuild) {
-      // ✅ Stocker le token côté client et rediriger vers index.html
+      // ✅ Stocker le token côté client et rediriger vers menu.html
       res.send(`
         <script>
           localStorage.setItem("discord_token", "${accessToken}");
@@ -71,11 +74,10 @@ app.get("/callback", async (req, res) => {
     }
 
   } catch (err) {
-    console.error(err.response?.data || err.message);
+    console.error("Erreur OAuth2:", err.response?.data || err.message);
     res.status(500).send("Erreur lors de la connexion OAuth2");
   }
 });
 
-app.listen(3000, () => console.log("Serveur lancé sur http://localhost:3000"));
-
-
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Serveur lancé sur http://localhost:${PORT}`));
