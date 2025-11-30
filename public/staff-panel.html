@@ -74,9 +74,7 @@
           div.className = "player-card";
           div.innerHTML = `
             <strong>${p.name}</strong> (ID: ${p.userId})
-            <button onclick="actionPlayer('${p.userId}', 'kick')">Kick</button>
-            <button onclick="actionPlayer('${p.userId}', 'ban')">Ban</button>
-            <button onclick="actionPlayer('${p.userId}', 'banperm')">Ban Perm</button>
+            <button onclick="kickPlayer('${p.userId}')">Kick</button>
           `;
           container.appendChild(div);
         });
@@ -86,16 +84,16 @@
       }
     }
 
-    async function actionPlayer(userId, action) {
+    async function kickPlayer(userId) {
       try {
         await fetch("/roblox/action", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId, action })
+          body: JSON.stringify({ userId, action: "kick" })
         });
-        alert(`Action "${action}" envoyée pour le joueur ${userId}`);
+        alert(`Kick envoyé pour le joueur ${userId}`);
       } catch (err) {
-        alert("Erreur lors de l'envoi de l'action.");
+        alert("Erreur lors de l'envoi du kick.");
         console.error(err);
       }
     }

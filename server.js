@@ -36,6 +36,21 @@ app.get("/roblox/players", (req, res) => {
   res.json(currentPlayers);
 });
 
+app.post("/roblox/action", express.json(), (req, res) => {
+  const { userId, action } = req.body;
+  console.log("Action reçue:", userId, action);
+
+  // Ici tu peux stocker l’action dans une variable globale
+  // que Roblox viendra lire régulièrement
+  global.lastAction = { userId, action };
+
+  res.sendStatus(200);
+});
+
+app.get("/roblox/action", (req, res) => {
+  res.json(global.lastAction || {});
+});
+
 
 
 // Callback OAuth2
