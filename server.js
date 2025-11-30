@@ -24,6 +24,20 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "Oauth.html"));
 });
 
+let currentPlayers = []; // variable globale pour stocker la liste
+
+// Roblox envoie la liste ici
+app.post("/roblox/players", (req, res) => {
+  currentPlayers = req.body; // [{name:"Maxime", userId:123}, ...]
+  res.sendStatus(200);
+});
+
+// Ton staff-panel ou ton navigateur peut la lire ici
+app.get("/roblox/players", (req, res) => {
+  res.json(currentPlayers);
+});
+
+
 // Callback OAuth2
 app.get("/callback", async (req, res) => {
   const code = req.query.code;
