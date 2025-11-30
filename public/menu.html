@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu</title>
+  <link rel="stylesheet" href="menu.css">
+</head>
+<body>
+  <div class="menu-container">
+    <h1>Bienvenue sur le Menu</h1>
+    <nav class="menu-nav">
+      <a href="#" class="menu-btn">Accueil</a>
+      <a href="#" class="menu-btn">Profil</a>
+      <a href="#" class="menu-btn">Serveur Discord</a>
+      <a href="#" class="menu-btn">Paramètres</a>
+      <a href="#" class="menu-btn logout" onclick="logout()">Déconnexion</a>
+    </nav>
+    <p id="status">Vérification de la connexion...</p>
+  </div>
+
+  <script>
+    // Vérifie si un token est présent
+    const token = localStorage.getItem("discord_token");
+    if (!token) {
+      // Pas connecté → redirection vers ton backend (ngrok ou localhost)
+      window.location.href = " https://variatively-lathery-latoria.ngrok-free.dev";
+    } else {
+      document.getElementById("status").innerText = "✅ Connecté via Discord";
+    }
+
+    // Fonction de déconnexion
+    function logout() {
+      localStorage.removeItem("discord_token");
+      window.location.href = " https://variatively-lathery-latoria.ngrok-free.dev";
+      // ou vers ton URL ngrok si tu veux forcer la reconnexion externe
+    }
+  </script>
+</body>
+</html>

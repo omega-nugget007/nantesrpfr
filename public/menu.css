@@ -1,0 +1,60 @@
+/* Style global */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #2c2f33; /* fond sombre Discord */
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Container principal */
+.menu-container {
+  text-align: center;
+  background: #23272a;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+/* Titre */
+.menu-container h1 {
+  margin-bottom: 30px;
+  font-size: 28px;
+  color: #ffffff;
+}
+
+/* Navigation */
+.menu-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Boutons */
+.menu-btn {
+  display: block;
+  padding: 12px 20px;
+  background-color: #5865F2; /* violet Discord */
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.menu-btn:hover {
+  background-color: #4752c4;
+  transform: scale(1.05);
+}
+
+/* Bouton déconnexion */
+.logout {
+  background-color: #ed4245; /* rouge Discord */
+}
+
+.logout:hover {
+  background-color: #b82d30;
+}
