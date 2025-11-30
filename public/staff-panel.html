@@ -4,45 +4,62 @@
   <meta charset="UTF-8">
   <title>Staff Panel</title>
   <link rel="stylesheet" href="menu.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #23272A;
+      color: #fff;
+      text-align: center;
+      margin: 0;
+      padding: 50px;
+    }
+    h1 {
+      color: #5865F2;
+      margin-bottom: 20px;
+    }
+    .panel-actions {
+      margin-top: 30px;
+    }
+    .panel-actions button {
+      background-color: #5865F2;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1em;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 10px;
+      transition: all 0.3s ease;
+    }
+    .panel-actions button:hover {
+      background-color: #4752C4;
+      transform: scale(1.05);
+    }
+  </style>
 </head>
 <body>
-  <div class="staff-container">
-    <h1>Staff Panel</h1>
-    <p id="status">Vérification des permissions...</p>
+  <h1 id="welcome">Staff Panel</h1>
+  <p id="status">✅ Accès staff autorisé</p>
 
-    <div id="panel" style="display:none;">
-      <button onclick="alert('Action: bannir un joueur')">🚫 Bannir un joueur</button>
-      <button onclick="alert('Action: envoyer une annonce')">📢 Envoyer une annonce</button>
-      <button onclick="alert('Action: voir logs')">📜 Voir les logs</button>
-    </div>
+  <div class="panel-actions">
+    <button onclick="alert('Action: bannir un joueur')">🚫 Bannir un joueur</button>
+    <button onclick="alert('Action: envoyer une annonce')">📢 Envoyer une annonce</button>
+    <button onclick="alert('Action: voir logs')">📜 Voir les logs</button>
   </div>
 
   <script>
-    const token = localStorage.getItem("discord_token");
-    if (!token) {
-      window.location.href = "/";
-    } else {
-      document.getElementById("status").innerText = "✅ Connecté via Discord";
+    // Vérifie si l'utilisateur est bien passé par la connexion staff
+    const staffAccess = localStorage.getItem("staff_access");
 
-      // Vérifier si l'utilisateur est staff
-      fetch("https://discord.com/api/users/@me/guilds", {
-        headers: { Authorization: `Bearer ${token}` }
-      })
-      .then(res => res.json())
-      .then(guilds => {
-        const targetGuild = guilds.find(g => g.id === "1386848639732809759"); // ton serveur
-        if (targetGuild && (targetGuild.owner || targetGuild.permissions & 0x8)) {
-          // owner ou admin
-          document.getElementById("panel").style.display = "block";
-          document.getElementById("status").innerText = "✅ Accès staff autorisé";
-        } else {
-          document.getElementById("status").innerText = "❌ Tu n'as pas accès au staff panel";
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        document.getElementById("status").innerText = "Erreur lors de la vérification";
-      });
+    if (!staffAccess || staffAccess !== "true") {
+      // ❌ Pas d'accès → retour au menu
+      window.location.href = "/menu.html";
+    } else {
+      // ✅ Afficher pseudo Discord si stocké
+      const username = localStorage.getItem("staff_username");
+      if (username) {
+        document.getElementById("welcome").innerText = `Bonjour ${username}, bienvenue dans le Staff Panel`;
+      }
     }
   </script>
 </body>
