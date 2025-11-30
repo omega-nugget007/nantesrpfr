@@ -5,10 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Menu</title>
   <link rel="stylesheet" href="menu.css">
+  <style>
+    .user-info {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .user-info img {
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      margin-right: 15px;
+    }
+    .user-info h1 {
+      margin: 0;
+      font-size: 1.8em;
+    }
+  </style>
 </head>
 <body>
   <div class="menu-container">
-    <h1>Bienvenue sur le Menu</h1>
+    <!-- Bloc utilisateur -->
+    <div class="user-info">
+      <img id="avatar" src="" alt="Avatar Discord" style="display:none;">
+      <h1 id="welcome">Bienvenue sur le Menu</h1>
+    </div>
+
     <nav class="menu-nav">
       <a href="#" class="menu-btn">Accueil</a>
       <a href="#" class="menu-btn">Profil</a>
@@ -23,17 +46,38 @@
     // Vérifie si un token est présent
     const token = localStorage.getItem("discord_token");
     if (!token) {
-      // Pas connecté → redirection vers ton backend (ngrok ou localhost)
+      // Pas connecté → redirection vers ton backend
       window.location.href = "https://nantesrpfr.onrender.com";
     } else {
       document.getElementById("status").innerText = "✅ Connecté via Discord";
+
+      // Récupérer les infos utilisateur
+      fetch("https://discord.com/api/users/@me", {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      .then(res => res.json())
+      .then(user => {
+        // Afficher pseudo
+        document.getElementById("welcome").innerText = `Bonjour, ${user.username}`;
+
+        // Afficher avatar si disponible
+        if (user.avatar) {
+          const avatarUrl = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
+          const avatarImg = document.getElementById("avatar");
+          avatarImg.src = avatarUrl;
+          avatarImg.style.display = "block";
+        }
+      })
+      .catch(err => {
+        console.error("Erreur API Discord:", err);
+        document.getElementById("welcome").innerText = "Bonjour, utilisateur";
+      });
     }
 
     // Fonction de déconnexion
     function logout() {
       localStorage.removeItem("discord_token");
       window.location.href = "https://nantesrpfr.onrender.com";
-      // ou vers ton URL ngrok si tu veux forcer la reconnexion externe
     }
   </script>
 </body>
