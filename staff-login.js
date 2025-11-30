@@ -3,7 +3,7 @@ const router = express.Router();
 
 // Exemple de "base de données" en dur
 const staffDB = [
-  { username: "Maxime", code: "SECRET123" },
+  { username: "emyx_gamer", code: "10" },
   { username: "AdminUser", code: "ADMIN456" }
 ];
 

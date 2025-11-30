@@ -12,5 +12,14 @@
     <input type="password" name="secretCode" placeholder="Code secret" required>
     <button type="submit">Se connecter</button>
   </form>
+  <script>
+  // Vérifie si l'utilisateur est passé par OAuth
+  const token = localStorage.getItem("discord_token");
+  if (!token) {
+    // ❌ Pas de token → retour à la page OAuth
+    window.location.href = "menu.html";
+  }
+</script>
+
 </body>
 </html>
