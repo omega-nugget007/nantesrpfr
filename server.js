@@ -66,13 +66,6 @@ app.get("/support.html", (req, res) => {
   res.sendFile(path.join(__dirname, "support.html"));
 });
 
-// Lancement du serveur
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Serveur lancé sur http://localhost:${PORT}`));
-
-
-
-
 // Callback OAuth2
 app.get("/callback", async (req, res) => {
   const code = req.query.code;
@@ -128,5 +121,4 @@ app.get("/callback", async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Serveur lancé sur http://localhost:${PORT}`));
