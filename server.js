@@ -54,7 +54,7 @@ app.get("/roblox/action", (req, res) => {
 
 // Routes pour tes fichiers hors du dossier public
 app.get("/metier.html", (req, res) => {
-  res.sendFile(path.join(__dirname, "metier.html"));
+  res.sendFile(path.join(__dirname, "métier.html"));
 });
 
 app.get("/collaboration.html", (req, res) => {
