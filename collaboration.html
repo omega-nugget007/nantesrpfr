@@ -5,11 +5,8 @@
   <title>Connexion Discord</title>
   <!-- Import d'une police moderne -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <style>
-        body {
+  <style>
+    body {
       font-family: 'Poppins', sans-serif;
       margin: 0;
       height: 100vh;
@@ -30,7 +27,107 @@
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(44,47,51,0.8);
+      padding: 10px 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      position: fixed;
+      top: 0;
+      width: 100%;
+    }
+
+    nav .center {
+      display: flex;
+      gap: 15px;
+    }
+
+    nav .right {
+      position: absolute;
+      right: 30px;
+    }
+        nav .left {
+      position: absolute;
+      left: 30px;
+    }
+
+
+    nav a button {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700; /* plus gras */
+      background-color: #5865F2;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1.1em;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    nav a button:hover {
+      background-color: #4752C4;
+      transform: scale(1.05);
+    }
+
+    h1 {
+      font-size: 3em;
+      font-weight: 700; /* très gras */
+      margin-top: 100px;
+      text-align: center;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    }
+
+    h2 {
+      font-size: 1.8em;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 20px;
+    }
+          button {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700; /* plus gras */
+      background-color: #5865F2;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1.1em;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+      button:hover {
+      background-color: #4752C4;
+      transform: scale(1.05);
+    }
+
+
+.section {
+  background: rgba(44,47,51,0.8);
+  margin: 60px auto; /* espace plus grand entre les sections */
+  padding: 40px;
+  border-radius: 10px;
+  width: 50%; /* réduit la largeur (avant 80%) */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+.section h2 {
+  color: #99AAB5;
+  font-size: 1.8em;
+  margin-bottom: 10px;
+}
+
+.section p {
+  font-size: 1.1em;
+  line-height: 1.6;
+}
   </style>
+</head>
+<body>
   <!-- Barre de navigation -->
   <nav>
     <div class="center">
@@ -47,10 +144,6 @@
           <h4>Collaboration</h4>
     </div>
   </nav>
-    <br>
-  <br>
-  <br>
-  <br>
     <h1>Collaboration</h1>
 
   <div class="section">
