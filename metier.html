@@ -8,6 +8,29 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <style>
+        body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+
+      /* Dégradé animé */
+      background: linear-gradient(270deg, #09ff00, #00ff62, #1bb166, #0a5a15);
+      background-size: 800% 800%;
+      animation: gradientAnimation 15s ease infinite;
+    }
+
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  </style>
   <!-- Barre de navigation -->
   <nav>
     <div class="center">
