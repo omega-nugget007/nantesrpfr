@@ -2,7 +2,6 @@ const express = require("express");
 const axios = require("axios");
 const path = require("path");
 const app = express();
-const discordCheck = require("./discordCheck")
 
 const CLIENT_ID = "1444348481732083824";
 const CLIENT_SECRET = "TpmJ_qClgdE7P_oGNKlV0GYDBJhk0yCG";
@@ -50,11 +49,13 @@ app.post("/roblox/action", express.json(), (req, res) => {
 
 app.get("/roblox/action", (req, res) => {
   res.json(global.lastAction || {});
+  res.json(action);
+
+  global.lastAction = null;
 });
+// ... tes autres routes (OAuth, staff, etc.)
 
-
-
-////// Routes pour tes fichiers hors du dossier public //////
+// Routes pour tes fichiers hors du dossier public
 app.get("/metier.html", (req, res) => {
   res.sendFile(path.join(__dirname, "metier.html"));
 });
@@ -67,12 +68,12 @@ app.get("/support.html", (req, res) => {
   res.sendFile(path.join(__dirname, "support.html"));
 });
 
-/////////// Callback OAuth2 ///////////
+// Callback OAuth2
 app.get("/callback", async (req, res) => {
   const code = req.query.code;
 
   try {
-    // 1. Échange du code contre un token
+    // Échange du code contre un token
     const tokenResponse = await axios.post(
       "https://discord.com/api/oauth2/token",
       new URLSearchParams({
@@ -88,28 +89,24 @@ app.get("/callback", async (req, res) => {
 
     const accessToken = tokenResponse.data.access_token;
 
-    // 2. Infos utilisateur
+    // Infos utilisateur
     const userResponse = await axios.get("https://discord.com/api/users/@me", {
       headers: { Authorization: `Bearer ${accessToken}` }
     });
 
-    // 3. Serveurs
+    // Serveurs
     const guildsResponse = await axios.get("https://discord.com/api/users/@me/guilds", {
       headers: { Authorization: `Bearer ${accessToken}` }
     });
 
-    const userId = userResponse.data.id;
     const username = userResponse.data.username;
     const guilds = guildsResponse.data;
 
-    // 4. Vérifier si l'utilisateur est dans le serveur cible
+    // Vérifier si l'utilisateur est dans le serveur cible
     const isInTargetGuild = guilds.some(g => g.id === TARGET_GUILD_ID);
 
     if (isInTargetGuild) {
-      // ✅ Ajouter le joueur validé
-      discordCheck.addDiscordMember(userId);
-
-      // 5. Redirection
+      // ✅ Stocker le token côté client et rediriger vers menu.html
       res.send(`
         <script>
           localStorage.setItem("discord_token", "${accessToken}");
@@ -125,7 +122,6 @@ app.get("/callback", async (req, res) => {
     res.status(500).send("Erreur lors de la connexion OAuth2");
   }
 });
-
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Serveur lancé sur http://localhost:${PORT}`));
