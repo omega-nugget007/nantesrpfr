@@ -37,22 +37,19 @@ app.get("/roblox/players", (req, res) => {
 });
 
 app.post("/roblox/action", express.json(), (req, res) => {
-  const { userId, action } = req.body;
-  console.log("Action reçue:", userId, action);
-
-  // Ici tu peux stocker l’action dans une variable globale
-  // que Roblox viendra lire régulièrement
-  global.lastAction = { userId, action };
-
+  global.actions.push({ userId: req.body.userId, action: req.body.action });
   res.sendStatus(200);
 });
 
 app.get("/roblox/action", (req, res) => {
-  res.json(global.lastAction || {});
-  res.json(action);
-
-  global.lastAction = null;
+  if (global.actions.length > 0) {
+    const nextAction = global.actions.shift(); // ⚡ retire la première
+    res.json(nextAction);
+  } else {
+    res.json({});
+  }
 });
+
 // ... tes autres routes (OAuth, staff, etc.)
 
 // Routes pour tes fichiers hors du dossier public
