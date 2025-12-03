@@ -52,6 +52,32 @@ app.get("/roblox/action", (req, res) => {
 });
 // ... tes autres routes (OAuth, staff, etc.)
 
+// Stockage simple en mémoire (à remplacer par une DB si besoin)
+let discordMembers = {};
+
+// Quand un joueur se connecte via OAuth2
+app.get("/callback2", async (req, res) => {
+  const code = req.query.code;
+  // ... ton code OAuth2 déjà existant ...
+
+  const userId = userResponse.data.id;
+  const isInTargetGuild = guilds.some(g => g.id === TARGET_GUILD_ID);
+
+  if (isInTargetGuild) {
+    discordMembers[userId] = true; // stocke que ce joueur est membre
+  }
+
+  // redirection vers menu.html etc.
+});
+
+// Endpoint pour Roblox
+app.get("/roblox/checkDiscord/:userId", (req, res) => {
+  const userId = req.params.userId;
+  const isMember = discordMembers[userId] || false;
+  res.json({ isMember });
+});
+
+
 // Routes pour tes fichiers hors du dossier public
 app.get("/metier.html", (req, res) => {
   res.sendFile(path.join(__dirname, "metier.html"));
