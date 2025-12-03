@@ -36,17 +36,26 @@ app.get("/roblox/players", (req, res) => {
   res.json(currentPlayers);
 });
 
+global.actions = [];
+
 app.post("/roblox/action", express.json(), (req, res) => {
-  global.actions.push({ userId: req.body.userId, action: req.body.action });
+  const { userId, action } = req.body;
+  global.actions.push({ userId, action });
   res.sendStatus(200);
 });
 
-app.get("/roblox/action", (req, res) => {
-  if (global.actions.length > 0) {
-    const nextAction = global.actions.shift(); // ⚡ retire la première
+app.get("/roblox/action/:userId", (req, res) => {
+  const userId = req.params.userId;
+
+  // Cherche une action pour CE joueur
+  const index = global.actions.findIndex(a => a.userId === userId);
+
+  if (index !== -1) {
+    const nextAction = global.actions[index];
+    global.actions.splice(index, 1); // ⚡ supprime après envoi
     res.json(nextAction);
   } else {
-    res.json({});
+    res.json({}); // rien à faire pour ce joueur
   }
 });
 
