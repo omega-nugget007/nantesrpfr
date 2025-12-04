@@ -2,6 +2,7 @@ const express = require("express");
 const axios = require("axios");
 const path = require("path");
 const app = express();
+const bodyParser = require("body-parser");
 
 const CLIENT_ID = "1444348481732083824";
 const CLIENT_SECRET = "TpmJ_qClgdE7P_oGNKlV0GYDBJhk0yCG";
@@ -11,6 +12,7 @@ const TARGET_GUILD_ID = "1386848639732809759";
 // Middleware pour lire les formulaires et JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(bodyParser.json())
 
 // Servir les fichiers statiques (menu.html, staff-login.html, etc.)
 app.use(express.static(path.join(__dirname, "public")));
@@ -22,6 +24,28 @@ app.use("/", staffRoutes);
 // Route pour afficher Oauth.html (page de connexion)
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "Oauth.html"));
+});
+
+let kickLogs = [];
+
+// Route POST : Roblox envoie un log
+app.post("/roblox/kicklogs", (req, res) => {
+  const { staff, target, message, timestamp } = req.body;
+
+  if (!staff || !target || !message) {
+    return res.status(400).json({ error: "Données invalides" });
+  }
+
+  const log = { staff, target, message, timestamp: timestamp || Date.now() };
+  kickLogs.push(log);
+
+  console.log("Nouveau log reçu :", log);
+  res.json({ success: true });
+});
+
+// Route GET : ton staffpanel.html récupère les logs
+app.get("/roblox/kicklogs", (req, res) => {
+  res.json(kickLogs);
 });
 
 let currentPlayers = [];

@@ -101,5 +101,31 @@
     loadPlayers();
     setInterval(loadPlayers, 1000); // rafraîchit toutes les 10s
   </script>
+
+<h2>Logs de Kick</h2>
+<pre id="kick-logs">Chargement des logs...</pre>
+
+<script>
+  async function loadKickLogs() {
+    try {
+      const res = await fetch("/roblox/kicklogs");
+      const logs = await res.json();
+      let text = "";
+      logs.forEach(log => {
+        const date = new Date(log.timestamp * 1000).toLocaleString();
+        text += `[${date}] ${log.message}\n`;
+      });
+      document.getElementById("kick-logs").textContent = text || "Aucun log.";
+    } catch (err) {
+      console.error("Erreur chargement logs:", err);
+      document.getElementById("kick-logs").textContent = "Erreur de chargement.";
+    }
+  }
+
+  setInterval(loadKickLogs, 3000); // recharge toutes les 3s
+  loadKickLogs();
+</script>
+
+  
 </body>
 </html>
