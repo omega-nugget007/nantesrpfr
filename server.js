@@ -9,26 +9,26 @@ const CLIENT_SECRET = "TpmJ_qClgdE7P_oGNKlV0GYDBJhk0yCG";
 const REDIRECT_URI = "https://nantesrpfr.onrender.com/callback";
 const TARGET_GUILD_ID = "1386848639732809759";
 
-// Middleware pour lire les formulaires et JSON
+// Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
-// Servir les fichiers statiques (menu.html, staff-login.html, etc.)
+// Fichiers statiques
 app.use(express.static(path.join(__dirname, "public")));
 
-// Importer et brancher les routes staff
+// Routes staff
 const staffRoutes = require("./staff");
 app.use("/", staffRoutes);
 
-// Route pour afficher Oauth.html (page de connexion)
+// Page de connexion
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "Oauth.html"));
 });
 
 let kickLogs = [];
 
-// Route POST : Roblox envoie un log
+// Logs envoyés par Roblox
 app.post("/roblox/kicklogs", (req, res) => {
   const { staff, target, message, timestamp } = req.body;
 
@@ -43,49 +43,37 @@ app.post("/roblox/kicklogs", (req, res) => {
   res.json({ success: true });
 });
 
-// Route GET : ton staffpanel.html récupère les logs
+// Récupération des logs
 app.get("/roblox/kicklogs", (req, res) => {
   res.json(kickLogs);
 });
 
 let currentPlayers = [];
 
+// Mise à jour des joueurs
 app.post("/roblox/players", express.json(), (req, res) => {
   currentPlayers = req.body;
   console.log("Joueurs reçus:", currentPlayers);
   res.sendStatus(200);
 });
 
+// Liste des joueurs
 app.get("/roblox/players", (req, res) => {
   res.json(currentPlayers);
 });
 
-global.actions = [];
-
-app.post("/roblox/action", express.json(), (req, res) => {
-  const { userId, action } = req.body;
-  global.actions.push({ userId, action });
-  res.sendStatus(200);
+// ⚠️ SUPPRESSION des routes d'action (kick, etc.)
+// On ne permet plus d'envoyer d'actions depuis le site.
+// Si quelqu’un tente un POST sur /roblox/action, on renvoie une erreur.
+app.post("/roblox/action", (req, res) => {
+  res.status(403).json({ error: "Action interdite depuis le site." });
 });
 
 app.get("/roblox/action/:userId", (req, res) => {
-  const userId = req.params.userId;
-
-  // Cherche une action pour CE joueur
-  const index = global.actions.findIndex(a => a.userId === userId);
-
-  if (index !== -1) {
-    const nextAction = global.actions[index];
-    global.actions.splice(index, 1); // ⚡ supprime après envoi
-    res.json(nextAction);
-  } else {
-    res.json({}); // rien à faire pour ce joueur
-  }
+  res.json({}); // aucune action disponible
 });
 
-// ... tes autres routes (OAuth, staff, etc.)
-
-// Routes pour tes fichiers hors du dossier public
+// Routes supplémentaires
 app.get("/metier.html", (req, res) => {
   res.sendFile(path.join(__dirname, "metier.html"));
 });
@@ -103,7 +91,6 @@ app.get("/callback", async (req, res) => {
   const code = req.query.code;
 
   try {
-    // Échange du code contre un token
     const tokenResponse = await axios.post(
       "https://discord.com/api/oauth2/token",
       new URLSearchParams({
@@ -119,12 +106,10 @@ app.get("/callback", async (req, res) => {
 
     const accessToken = tokenResponse.data.access_token;
 
-    // Infos utilisateur
     const userResponse = await axios.get("https://discord.com/api/users/@me", {
       headers: { Authorization: `Bearer ${accessToken}` }
     });
 
-    // Serveurs
     const guildsResponse = await axios.get("https://discord.com/api/users/@me/guilds", {
       headers: { Authorization: `Bearer ${accessToken}` }
     });
@@ -132,11 +117,9 @@ app.get("/callback", async (req, res) => {
     const username = userResponse.data.username;
     const guilds = guildsResponse.data;
 
-    // Vérifier si l'utilisateur est dans le serveur cible
     const isInTargetGuild = guilds.some(g => g.id === TARGET_GUILD_ID);
 
     if (isInTargetGuild) {
-      // ✅ Stocker le token côté client et rediriger vers menu.html
       res.send(`
         <script>
           localStorage.setItem("discord_token", "${accessToken}");
@@ -155,4 +138,3 @@ app.get("/callback", async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Serveur lancé sur http://localhost:${PORT}`));
-

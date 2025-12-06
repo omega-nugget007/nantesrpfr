@@ -53,54 +53,42 @@
   <p id="status">Chargement des joueurs connectés...</p>
   <div id="players-list"></div>
 
-  <script>
-    async function loadPlayers() {
-      try {
-        const res = await fetch("/roblox/players");
-        const players = await res.json();
+<script>
+  async function loadPlayers() {
+    try {
+      const res = await fetch("/roblox/players");
+      const players = await res.json();
 
-        const container = document.getElementById("players-list");
-        container.innerHTML = "";
+      const container = document.getElementById("players-list");
+      container.innerHTML = "";
 
-        if (players.length === 0) {
-          document.getElementById("status").innerText = "Aucun joueur connecté.";
-          return;
-        }
-
-        document.getElementById("status").innerText = `Joueurs connectés : ${players.length}`;
-
-        players.forEach(p => {
-          const div = document.createElement("div");
-          div.className = "player-card";
-          div.innerHTML = `
-            <strong>${p.name}</strong> (ID: ${p.userId})
-            <button onclick="kickPlayer('${p.userId}')">Kick</button>
-          `;
-          container.appendChild(div);
-        });
-      } catch (err) {
-        console.error("Erreur chargement joueurs:", err);
-        document.getElementById("status").innerText = "Erreur de chargement.";
+      if (players.length === 0) {
+        document.getElementById("status").innerText = "Aucun joueur connecté.";
+        return;
       }
-    }
 
-    async function kickPlayer(userId) {
-      try {
-        await fetch("/roblox/action", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId, action: "kick" })
-        });
-        alert(`Kick envoyé pour le joueur ${userId}`);
-      } catch (err) {
-        alert("Erreur lors de l'envoi du kick.");
-        console.error(err);
-      }
-    }
+      document.getElementById("status").innerText = `Joueurs connectés : ${players.length}`;
 
-    loadPlayers();
-    setInterval(loadPlayers, 1000); // rafraîchit toutes les 10s
-  </script>
+      players.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "player-card";
+        div.innerHTML = `
+          <strong>${p.name}</strong> (ID: ${p.userId})
+        `;
+        container.appendChild(div);
+      });
+    } catch (err) {
+      console.error("Erreur chargement joueurs:", err);
+      document.getElementById("status").innerText = "Erreur de chargement.";
+    }
+  }
+
+  // On supprime complètement la fonction kickPlayer car elle n'est plus utilisée
+
+  loadPlayers();
+  setInterval(loadPlayers, 1000); // rafraîchit toutes les 10s
+</script>
+
 
 <p><h2>Logs de Kick</h2></p>
 <pre id="kick-logs">Chargement des logs...</pre>
