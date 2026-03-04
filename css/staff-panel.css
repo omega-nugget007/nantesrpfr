@@ -1,0 +1,60 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #0d0d0d;
+    color: white;
+}
+
+header {
+    background: #1a1a1a;
+    padding: 20px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.candidatures-container {
+    width: 80%;
+    margin: 30px auto;
+}
+
+.candidatures-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.candidature-card {
+    background: #1a1a1a;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 5px solid #ffcc00;
+}
+
+.candidature-card h3 {
+    margin: 0 0 10px 0;
+}
+
+.candidature-card button {
+    margin-right: 10px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.accept {
+    background: #28a745;
+    color: white;
+}
+
+.refuse {
+    background: #dc3545;
+    color: white;
+}
+
+.view {
+    background: #007bff;
+    color: white;
+}
