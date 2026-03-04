@@ -16,7 +16,7 @@ document.getElementById("recrutementForm").addEventListener("submit", async func
     };
 
     try {
-        const res = await fetch("https://nantesrpjobs.maxi-emy8.workers.dev/api/candidatures", {
+        const res = await fetch("https://backend-candidatures-metiers-nantesrp.onrender.com/api/candidatures", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)

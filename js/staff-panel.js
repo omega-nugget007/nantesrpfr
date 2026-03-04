@@ -9,7 +9,7 @@ function saveAll() {
 
 async function loadFromBackend() {
     try {
-        const res = await fetch("https://TON-WORKER-URL/api/candidatures");
+        const res = await fetch("https://backend-candidatures-metiers-nantesrp.onrender.com/api/candidatures");
         pending = await res.json();
         loadLists();
     } catch (e) {
