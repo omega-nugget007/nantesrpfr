@@ -16,7 +16,7 @@ document.getElementById("recrutementForm").addEventListener("submit", async func
     };
 
     try {
-        const res = await fetch("https://nantesrpjobs.maxi-emy8.workers.dev/", {
+        const res = await fetch("https://nantesrpjobs.maxi-emy8.workers.dev/api/candidatures", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
@@ -25,7 +25,6 @@ document.getElementById("recrutementForm").addEventListener("submit", async func
         if (res.ok) {
             status.textContent = "Votre candidature a été envoyée avec succès !";
             status.style.color = "lightgreen";
-
             document.getElementById("recrutementForm").reset();
         } else {
             status.textContent = "Erreur lors de l’envoi.";
