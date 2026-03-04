@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Recrutements - Nantes RP</title>
+    <link rel="stylesheet" href="css/recrutements.css">
+</head>
+<body>
+
+<header>
+    <div class="nav-container">
+        <h1 class="logo">Nantes <span>RP</span></h1>
+
+        <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="menu-icon">&#9776;</label>
+
+        <nav class="navbar">
+            <a href="index.html">Accueil</a>
+            <a href="jobs.html">Métiers</a>
+            <a href="recrutements.html">Recrutements</a>
+            <a href="connexion.html">Connexion Staff</a>
+        </nav>
+    </div>
+</header>
+
+<section class="form-section">
+    <h2>Rejoindre une faction</h2>
+
+    <form id="recrutementForm">
+        <input type="text" id="discord" placeholder="Pseudo Discord" required>
+        <input type="number" id="age" placeholder="Âge" required>
+
+        <select id="metier">
+            <option>Police Nationale</option>
+            <option>SDIS 44</option>
+            <option>Neolib</option>
+            <option>Mairie de Nantes</option>
+            <option>DIR Atlantique</option>
+        </select>
+
+        <textarea id="motivation" placeholder="Motivation" required></textarea>
+
+        <button type="submit">Envoyer</button>
+    </form>
+
+    <p id="statusMessage"></p>
+</section>
+
+<script src="js/recrutements.js"></script>
+</body>
+</html>
