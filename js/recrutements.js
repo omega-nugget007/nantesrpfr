@@ -1,6 +1,7 @@
 document.getElementById("recrutementForm").addEventListener("submit", async function(e) {
     e.preventDefault();
 
+    const mail = document.getElementById("mail");value.trim();
     const discord = document.getElementById("discord").value.trim();
     const age = document.getElementById("age").value.trim();
     const metier = document.getElementById("metier").value;
@@ -9,6 +10,7 @@ document.getElementById("recrutementForm").addEventListener("submit", async func
     const status = document.getElementById("statusMessage");
 
     const data = {
+        mail,
         discord,
         age,
         metier,
