@@ -16,8 +16,8 @@
   <h1>Postuler au Staff</h1>
 
   <form id="staffForm">
-    <label for="prenom">Prénom :</label>
-    <input type="text" id="prenom" required>
+    <label for="prenom">Pseudo Discord</label>
+    <input type="text" id="discord" required>
 
     <label for="age">Âge :</label>
     <input type="number" id="age" min="10" max="100" required>
@@ -60,18 +60,16 @@
 
   // 🔥 Fonction d’envoi des candidatures STAFF
   async function envoyerStaff() {
-    const prenom = document.getElementById("prenom").value;
+    const discord = document.getElementById("discord").value;
     const age = document.getElementById("age").value;
     const motivations = document.getElementById("motivations").value;
     const experience = document.getElementById("experience").value;
-    const email = document.getElementById("email").value;
 
     await addDoc(collection(db, "candidatures_staff"), {
-      prenom,
+      discord,
       age,
       motivations,
       experience,
-      email,
       date: new Date()
     });
 
