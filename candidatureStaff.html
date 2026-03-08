@@ -67,14 +67,17 @@
     const email = document.getElementById("email").value;
 
     await addDoc(collection(db, "candidatures_staff"), {
-      prenom,
-      age,
-      motivations,
-      experience,
-      email,
-      accepte: "N/A",   // 🔥 Statut par défaut
-      date: new Date()
-    });
+    prenom,
+    age,
+    motivations,
+    experience,
+    email,
+    discordID,
+    grade,
+    accepte: "N/A",
+    date: new Date()
+});
+
 
     document.getElementById("message").textContent =
       "Candidature envoyée avec succès !";
