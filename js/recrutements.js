@@ -9,7 +9,7 @@ document.getElementById("recrutementForm").addEventListener("submit", async (e) 
         motivation: motivation.value
     };
 
-    const webhook = "https://script.google.com/macros/s/AKfycby8TNJJPfEa7UmvR85BaQwUUJJF0Uln-Se2N3Hfxdoir3p2Y6996dF1j6qNPJmFOD9X/exec";
+    const webhook = "https://backend-candidatures-metiers-nantesrp.onrender.com/metiers";
 
     await fetch(webhook, {
         method: "POST",
