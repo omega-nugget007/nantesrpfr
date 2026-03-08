@@ -1,63 +1,20 @@
-// Initialise EmailJS
-emailjs.init("bADY6_knZXtNp7Msj");
+document.getElementById("staffForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-// Récupère le formulaire
-const staffForm = document.getElementById("staffForm");
-const messageDiv = document.getElementById("message");
-
-staffForm.addEventListener("submit", function(event) {
-    event.preventDefault();
-
-    // Vérifie RGPD
-    const rgpd = document.getElementById("rgpd").checked;
-    if (!rgpd) {
-        messageDiv.textContent = "Vous devez accepter le stockage de votre e-mail pour postuler.";
-        messageDiv.className = "error";
-        return;
-    }
-
-    // Récupère les valeurs du formulaire
-    const prenom = document.getElementById("prenom").value;
-    const age = document.getElementById("age").value;
-    const motivations = document.getElementById("motivations").value;
-    const experience = document.getElementById("experience").value;
-    const email = document.getElementById("email").value;
-
-    // Crée une candidature staff
-    const newStaff = {
-        id: Date.now(),
-        discord: prenom,
-        age: age,
-        motivations: motivations,
-        experience: experience,
-        email: email,
-        metier: "Staff"
+    const data = {
+        prenom: prenom.value,
+        age: age.value,
+        motivations: motivations.value,
+        experience: experience.value,
+        email: email.value
     };
 
-    // Sauvegarde dans pendingStaff
-    let pendingStaff = JSON.parse(localStorage.getItem("pendingStaff")) || [];
-    pendingStaff.push(newStaff);
-    localStorage.setItem("pendingStaff", JSON.stringify(pendingStaff));
+    const webhook = "URL_WEBHOOK_STAFF";
 
-    // Ajoute la candidature dans pending du panel
-    pending.push(newStaff);
-    loadLists();
-
-    // Envoie mail via EmailJS
-    emailjs.send("service_6a5oi6d", "template_pejmkhf", {
-        name: prenom,
-        email: email,
-        age: age,
-        motivations: motivations,
-        experience: experience,
-        status: "en attente"
-    }).then(() => {
-        messageDiv.textContent = "Votre candidature a été envoyée avec succès !";
-        messageDiv.className = "success";
-        staffForm.reset();
-    }).catch((error) => {
-        messageDiv.textContent = "Erreur lors de l'envoi, veuillez réessayer.";
-        messageDiv.className = "error";
-        console.error(error);
+    await fetch(webhook, {
+        method: "POST",
+        body: JSON.stringify(data)
     });
+
+    alert("Candidature envoyée !");
 });
