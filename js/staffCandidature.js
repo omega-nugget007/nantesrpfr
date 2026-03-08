@@ -9,7 +9,7 @@ document.getElementById("staffForm").addEventListener("submit", async (e) => {
         email: document.getElementById("email").value
     };
 
-    const webhook = "https://script.google.com/macros/s/AKfycbwu975F5upHCZShYw5Ht6mlrr_UWKr7AV0yFYx4Goe9jqKaxwtsTdHJpE8Tw0bTJ2rQ/exec";
+    const webhook = "https://script.google.com/macros/s/AKfycbz04MXqeLTNAk4sp1rgFClWzmKjbtu-AcpgD_VeTdrS1giITXXxRrigdmbKgT1lt8vb/exec";
 
     try {
         await fetch(webhook, {
@@ -17,9 +17,11 @@ document.getElementById("staffForm").addEventListener("submit", async (e) => {
             body: JSON.stringify(data)
         });
 
-        alert("Candidature staff envoyée !");
+        document.getElementById("message").textContent = "Candidature envoyée avec succès !";
+        document.getElementById("staffForm").reset();
+
     } catch (err) {
-        alert("Erreur lors de l’envoi.");
+        document.getElementById("message").textContent = "Erreur lors de l’envoi.";
         console.error(err);
     }
 });
