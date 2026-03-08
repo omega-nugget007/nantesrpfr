@@ -174,43 +174,28 @@
 
 <!-- 🔥 SCRIPT FIREBASE + ENVOI DES DONNÉES -->
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { 
+    getFirestore, collection, addDoc, 
+    query, where, getDocs, orderBy, limit 
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyCK1VRjC3CvHdz4JARRLp8je61ztBDXqRY",
-        authDomain: "candidatures-metiers-staffs.firebaseapp.com",
-        projectId: "candidatures-metiers-staffs",
-        storageBucket: "candidatures-metiers-staffs.appspot.com",
-        messagingSenderId: "798655660932",
-        appId: "1:798655660932:web:3077faa73e3f916a7793d1"
-    };
+const firebaseConfig = {
+    apiKey: "AIzaSyCK1VRjC3CvHdz4JARRLp8je61ztBDXqRY",
+    authDomain: "candidatures-metiers-staffs.firebaseapp.com",
+    projectId: "candidatures-metiers-staffs",
+    storageBucket: "candidatures-metiers-staffs.appspot.com",
+    messagingSenderId: "798655660932",
+    appId: "1:798655660932:web:3077faa73e3f916a7793d1"
+};
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    async function envoyerMetiers() {
-
-        const check = await peutCandidaterMetier(discordID);
-
-if (!check.ok) {
-    if (check.reason === "cooldown") {
-        document.getElementById("statusMessage").textContent =
-            `❌ Vous devez attendre encore ${check.hoursLeft} heures avant de refaire une candidature.`;
-    }
-    return;
-}
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 
-    
-    const discord = document.getElementById("discord").value;
-    const discordID = document.getElementById("discordID").value;
-    const age = document.getElementById("age").value;
-    const metier = document.getElementById("metier").value;
-    const grade = document.getElementById("grade").value;
-    const motivation = document.getElementById("motivation").value;
 
-    async function peutCandidaterMetier(discordID) {
+// 🔥 Vérification COOLDOWN 24H
+async function peutCandidaterMetier(discordID) {
     const q = query(
         collection(db, "candidatures_metiers"),
         where("discordID", "==", discordID),
@@ -220,7 +205,7 @@ if (!check.ok) {
 
     const snap = await getDocs(q);
 
-    if (snap.empty) return { ok: true }; // aucune candidature → OK
+    if (snap.empty) return { ok: true };
 
     const last = snap.docs[0].data();
     const lastDate = last.date.toDate();
@@ -228,7 +213,6 @@ if (!check.ok) {
 
     const diffHeures = (now - lastDate) / (1000 * 60 * 60);
 
-    // 🔥 COOLDOWN 24H OBLIGATOIRE
     if (diffHeures < 24) {
         return {
             ok: false,
@@ -241,31 +225,53 @@ if (!check.ok) {
 }
 
 
-        await addDoc(collection(db, "candidatures_metiers"), {
-    discord,
-    discordID,
-    age,
-    metier,
-    grade,
-    motivation,
-    typeRecrutement: "metier",
-    accepte: "N/A",
-    date: new Date()
-});
 
+// 🔥 Envoi candidature métiers
+async function envoyerMetiers() {
+
+    const discord = document.getElementById("discord").value;
+    const discordID = document.getElementById("discordID").value;
+    const age = document.getElementById("age").value;
+    const metier = document.getElementById("metier").value;
+    const grade = document.getElementById("grade").value;
+    const motivation = document.getElementById("motivation").value;
+
+    // Vérification cooldown
+    const check = await peutCandidaterMetier(discordID);
+
+    if (!check.ok) {
+        document.getElementById("statusMessage").textContent =
+            `❌ Vous devez attendre encore ${check.hoursLeft} heures avant de refaire une candidature.`;
+        return;
+    }
+
+    // Envoi Firebase
+    await addDoc(collection(db, "candidatures_metiers"), {
+        discord,
+        discordID,
+        age,
+        metier,
+        grade,
+        motivation,
+        typeRecrutement: "metier",
+        accepte: "N/A",
+        date: new Date()
+    });
 
     document.getElementById("statusMessage").textContent =
         "Candidature envoyée avec succès !";
 }
 
 
-    // 🔥 Empêcher le rechargement + appeler envoyerMetiers()
-    document.getElementById("recrutementForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-        await envoyerMetiers();
-        e.target.reset();
-    });
+
+// 🔥 Empêcher rechargement
+document.getElementById("recrutementForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    await envoyerMetiers();
+    e.target.reset();
+});
 </script>
+
 
 </body>
 </html>
