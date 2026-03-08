@@ -55,13 +55,13 @@
   import { getFirestore, collection, addDoc, query, where, getDocs, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
   const firebaseConfig = {
-  apiKey: "AIzaSyD639mBtKXqsyk8oNo9pHvoZfJbTyN8Dz8",
-  authDomain: "candidatures-staffs-nantesrp.firebaseapp.com",
-  projectId: "candidatures-staffs-nantesrp",
-  storageBucket: "candidatures-staffs-nantesrp.firebasestorage.app",
-  messagingSenderId: "831554643101",
-  appId: "1:831554643101:web:8f764468ee535628b5e074"
-};
+    apiKey: "AIzaSyD639mBtKXqsyk8oNo9pHvoZfJbTyN8Dz8",
+    authDomain: "candidatures-staffs-nantesrp.firebaseapp.com",
+    projectId: "candidatures-staffs-nantesrp",
+    storageBucket: "candidatures-staffs-nantesrp.firebasestorage.app",
+    messagingSenderId: "831554643101",
+    appId: "1:831554643101:web:8f764468ee535628b5e074"
+  };
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
@@ -80,26 +80,20 @@
     if (snap.empty) return { ok: true }; // aucune candidature → OK
 
     const last = snap.docs[0].data();
-    const lastDate = last.date.toDate();
-    const now = new Date();
-    const diffHeures = (now - lastDate) / (1000 * 60 * 60);
 
     // 🔥 1. Si déjà accepté → jamais autorisé
     if (last.accepte === "true") {
       return { ok: false, reason: "accepted" };
     }
 
-    // 🔥 2. Si refusé → cooldown 48h
-    if (last.accepte === "false") {
-      if (diffHeures < 48) {
-        return { ok: false, reason: "cooldown", hoursLeft: Math.ceil(48 - diffHeures) };
-      }
-      return { ok: true };
-    }
-
-    // 🔥 3. Si en attente (N/A) → doit attendre la réponse
+    // 🔥 2. Si en attente → doit attendre la réponse
     if (last.accepte === "N/A") {
       return { ok: false, reason: "pending" };
+    }
+
+    // 🔥 3. Si refusé → autorisé immédiatement
+    if (last.accepte === "false") {
+      return { ok: true };
     }
 
     return { ok: true };
@@ -124,9 +118,6 @@
       } else if (check.reason === "pending") {
         document.getElementById("message").textContent =
           "❌ Votre candidature précédente est encore en attente. Merci de patienter.";
-      } else if (check.reason === "cooldown") {
-        document.getElementById("message").textContent =
-          `❌ Vous avez été refusé récemment. Vous pourrez refaire une candidature dans ${check.hoursLeft} heures.`;
       }
       return;
     }
@@ -155,6 +146,7 @@
     e.target.reset();
   });
 </script>
+
 
 
 
