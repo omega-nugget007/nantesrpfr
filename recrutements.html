@@ -197,6 +197,37 @@
     const grade = document.getElementById("grade").value;
     const motivation = document.getElementById("motivation").value;
 
+    async function peutCandidaterMetier(discordID) {
+    const q = query(
+        collection(db, "candidatures_metiers"),
+        where("discordID", "==", discordID),
+        orderBy("date", "desc"),
+        limit(1)
+    );
+
+    const snap = await getDocs(q);
+
+    if (snap.empty) return { ok: true }; // aucune candidature → OK
+
+    const last = snap.docs[0].data();
+    const lastDate = last.date.toDate();
+    const now = new Date();
+
+    const diffHeures = (now - lastDate) / (1000 * 60 * 60);
+
+    // 🔥 COOLDOWN 24H OBLIGATOIRE
+    if (diffHeures < 24) {
+        return {
+            ok: false,
+            reason: "cooldown",
+            hoursLeft: Math.ceil(24 - diffHeures)
+        };
+    }
+
+    return { ok: true };
+}
+
+
         await addDoc(collection(db, "candidatures_metiers"), {
     discord,
     discordID,
