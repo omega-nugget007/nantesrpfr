@@ -1,39 +1,20 @@
-document.getElementById("recrutementForm").addEventListener("submit", async function(e) {
+document.getElementById("recrutementForm").addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const mail = document.getElementById("mail");value.trim();
-    const discord = document.getElementById("discord").value.trim();
-    const age = document.getElementById("age").value.trim();
-    const metier = document.getElementById("metier").value;
-    const motivation = document.getElementById("motivation").value.trim();
-
-    const status = document.getElementById("statusMessage");
-
     const data = {
-        mail,
-        discord,
-        age,
-        metier,
-        motivation
+        email: email.value,
+        discord: discord.value,
+        age: age.value,
+        metier: metier.value,
+        motivation: motivation.value
     };
 
-    try {
-        const res = await fetch("https://backend-candidatures-metiers-nantesrp.onrender.com/api/candidatures", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
-        });
+    const webhook = "URL_WEBHOOK_METIERS";
 
-        if (res.ok) {
-            status.textContent = "Votre candidature a été envoyée avec succès !";
-            status.style.color = "lightgreen";
-            document.getElementById("recrutementForm").reset();
-        } else {
-            status.textContent = "Erreur lors de l’envoi.";
-            status.style.color = "red";
-        }
-    } catch (err) {
-        status.textContent = "Impossible de contacter le serveur.";
-        status.style.color = "red";
-    }
+    await fetch(webhook, {
+        method: "POST",
+        body: JSON.stringify(data)
+    });
+
+    alert("Recrutement envoyé !");
 });
