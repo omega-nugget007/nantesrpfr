@@ -53,6 +53,60 @@ c<!DOCTYPE html>
     <p id="statusMessage"></p>
 </section>
 
-<script src="js/recrutements.js"></script>
+    <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+  apiKey: "AIzaSyCK1VRjC3CvHdz4JARRLp8je61ztBDXqRY",
+  authDomain: "candidatures-metiers-staffs.firebaseapp.com",
+  projectId: "candidatures-metiers-staffs",
+  storageBucket: "candidatures-metiers-staffs.firebasestorage.app",
+  messagingSenderId: "798655660932",
+  appId: "1:798655660932:web:3077faa73e3f916a7793d1"
+};
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  async function envoyerStaff() {
+    const prenom = document.getElementById("prenom").value;
+    const age = document.getElementById("age").value;
+    const motivations = document.getElementById("motivations").value;
+    const experience = document.getElementById("experience").value;
+    const email = document.getElementById("email").value;
+
+    await addDoc(collection(db, "candidatures_staff"), {
+      prenom,
+      age,
+      motivations,
+      experience,
+      email,
+      date: new Date()
+    });
+
+    alert("Candidature envoyée !");
+  }
+
+  async function envoyerMetiers() {
+    const email = document.getElementById("email").value;
+    const discord = document.getElementById("discord").value;
+    const age = document.getElementById("age").value;
+    const metier = document.getElementById("metier").value;
+    const motivation = document.getElementById("motivation").value;
+
+    await addDoc(collection(db, "candidatures_metiers"), {
+      email,
+      discord,
+      age,
+      metier,
+      motivation,
+      date: new Date()
+    });
+
+    alert("Candidature envoyée !");
+  }
+</script>
+
 </body>
 </html>
