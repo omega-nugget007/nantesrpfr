@@ -1,27 +1,29 @@
 document.getElementById("staffForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const data = {
-        prenom: document.getElementById("prenom").value,
-        age: document.getElementById("age").value,
-        motivations: document.getElementById("motivations").value,
-        experience: document.getElementById("experience").value,
-        email: document.getElementById("email").value
-    };
+  const data = {
+    prenom: document.getElementById("prenom").value,
+    age: document.getElementById("age").value,
+    motivations: document.getElementById("motivations").value,
+    experience: document.getElementById("experience").value,
+    email: document.getElementById("email").value
+  };
 
-    const webhook = "https://script.google.com/macros/s/AKfycbyBX5igOUsF5fccz6hHnlhcy3wztvjBQR04Txygwfcfel6khGDwtphixzmFrr64vFS1YA/exec";
+  const webhook = "https://backend-candidatures-metiers-nantesrp.onrender.com";
 
-    try {
-        await fetch(webhook, {
-            method: "POST",
-            body: JSON.stringify(data)
-        });
+  try {
+    const res = await fetch(webhook, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
 
-        document.getElementById("message").textContent = "Candidature envoyée avec succès !";
-        document.getElementById("staffForm").reset();
+    if (!res.ok) throw new Error("Erreur API");
 
-    } catch (err) {
-        document.getElementById("message").textContent = "Erreur lors de l’envoi.";
-        console.error(err);
-    }
+    document.getElementById("message").textContent = "Candidature envoyée avec succès !";
+    document.getElementById("staffForm").reset();
+  } catch (err) {
+    console.error(err);
+    document.getElementById("message").textContent = "Erreur lors de l’envoi.";
+  }
 });
