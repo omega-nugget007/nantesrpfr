@@ -26,11 +26,10 @@
 
 <section class="form-section">
 
-    <h2>Recrutements Métiers</h2>
+    <h2>Recrutements Métiers Fermés</h2>
 
-    <form id="recrutementForm">
-
-    <input type="email" id="email" placeholder="Adresse Email" required>
+    <!-- <form id="recrutementForm">
+        
     <input type="text" id="discord" placeholder="Pseudo Discord" required>
     <input type="text" id="discordID" placeholder="ID Discord (ex: 123456789012345678)" required>
     <input type="number" id="age" placeholder="Âge" required>
@@ -61,7 +60,7 @@
 
 
     <p id="statusMessage"></p>
-</section>
+</section> -->
 
 <!-- 🔥 SCRIPT FIREBASE + ENVOI DES DONNÉES -->
 <script type="module">
@@ -90,7 +89,6 @@
     const motivation = document.getElementById("motivation").value;
 
     await addDoc(collection(db, "candidatures_metiers"), {
-        email,
         discord,
         discordID,
         age,
