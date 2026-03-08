@@ -57,26 +57,27 @@
   const db = getFirestore(app);
 
   // 🔥 Fonction d’envoi des candidatures STAFF
-  async function envoyerMetiers() {
-    const email = document.getElementById("email").value;
-    const discord = document.getElementById("discord").value;
+  async function envoyerStaff() {
+    const prenom = document.getElementById("prenom").value;
     const age = document.getElementById("age").value;
-    const metier = document.getElementById("metier").value;
-    const motivation = document.getElementById("motivation").value;
+    const motivations = document.getElementById("motivations").value;
+    const experience = document.getElementById("experience").value;
+    const email = document.getElementById("email").value;
 
-    await addDoc(collection(db, "candidatures_metiers"), {
-        email,
-        discord,
+    await addDoc(collection(db, "candidatures_staff"), {
+        prenom,
         age,
-        metier,
-        motivation,
+        motivations,
+        experience,
+        email,
         accepte: "N/A",   // 🔥 Ajout du statut
         date: new Date()
     });
 
-    document.getElementById("statusMessage").textContent =
+    document.getElementById("message").textContent =
         "Candidature envoyée avec succès !";
 }
+
 
 
 
