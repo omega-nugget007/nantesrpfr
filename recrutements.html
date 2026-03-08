@@ -62,7 +62,7 @@
     <p id="statusMessage"></p>
 </section>
 
-    <script>
+<script>
     const metierSelect = document.getElementById("metier");
     const gradeSelect = document.getElementById("grade");
 
@@ -135,11 +135,11 @@
         ],
 
         "Mairie de Nantes": [
-            // Tu pourras ajouter toi-même ici
+            // tu ajoutes ici
         ],
 
         "DIR Atlantique": [
-            // Tu pourras ajouter toi-même ici
+            // tu ajoutes ici
         ]
     };
 
@@ -151,15 +151,23 @@
 
         list.forEach(g => {
             const option = document.createElement("option");
-            option.textContent = g;
-            option.value = g;
+
+            // 🔥 Si c’est un titre → disabled + style
+            if (g.startsWith("====")) {
+                option.textContent = g;
+                option.disabled = true;
+                option.style.fontWeight = "bold";
+                option.style.background = "#ddd";
+            } else {
+                option.textContent = g;
+                option.value = g;
+            }
+
             gradeSelect.appendChild(option);
         });
     }
 
     metierSelect.addEventListener("change", updateGrades);
-
-    // Initialisation au chargement
     updateGrades();
 </script>
 
