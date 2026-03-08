@@ -190,6 +190,19 @@
     const db = getFirestore(app);
 
     async function envoyerMetiers() {
+
+        const check = await peutCandidaterMetier(discordID);
+
+if (!check.ok) {
+    if (check.reason === "cooldown") {
+        document.getElementById("statusMessage").textContent =
+            `❌ Vous devez attendre encore ${check.hoursLeft} heures avant de refaire une candidature.`;
+    }
+    return;
+}
+
+
+    
     const discord = document.getElementById("discord").value;
     const discordID = document.getElementById("discordID").value;
     const age = document.getElementById("age").value;
