@@ -9,7 +9,7 @@ document.getElementById("staffForm").addEventListener("submit", async (e) => {
     email: document.getElementById("email").value
   };
 
-  const webhook = "https://backend-candidatures-metiers-nantesrp.onrender.com";
+  const webhook = "https://backend-candidatures-metiers-nantesrp.onrender.com/staff";
 
   try {
     const res = await fetch(webhook, {
