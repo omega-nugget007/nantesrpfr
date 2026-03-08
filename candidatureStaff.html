@@ -17,17 +17,16 @@
 
   <form id="staffForm">
 
-    <label for="prenom">Prénom :</label>
-    <input type="text" id="prenom" required>
 
-    <label for="age">Âge :</label>
-    <input type="number" id="age" min="10" max="100" required>
 
     <label for="discordPseudo">Pseudo Discord :</label>
     <input type="text" id="discordPseudo" placeholder="Ex: Maxime#0001" required>
 
     <label for="discordID">ID Discord :</label>
     <input type="text" id="discordID" placeholder="Ex: 123456789012345678" required>
+
+    <label for="age">Âge :</label>
+    <input type="number" id="age" min="10" max="100" required>
 
     <label for="grade">Poste souhaité :</label>
     <select id="grade" required>
@@ -69,7 +68,6 @@
 
   // 🔥 Fonction d’envoi
   async function envoyerStaff() {
-    const prenom = document.getElementById("prenom").value;
     const age = document.getElementById("age").value;
     const discordPseudo = document.getElementById("discordPseudo").value;
     const discordID = document.getElementById("discordID").value;
@@ -78,7 +76,6 @@
     const experience = document.getElementById("experience").value;
 
     await addDoc(collection(db, "candidatures_staff"), {
-      prenom,
       age,
       discordPseudo,
       discordID,
