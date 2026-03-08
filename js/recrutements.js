@@ -9,7 +9,7 @@ document.getElementById("recrutementForm").addEventListener("submit", async (e) 
         motivation: motivation.value
     };
 
-    const webhook = "URL_WEBHOOK_METIERS";
+    const webhook = "https://script.google.com/macros/s/AKfycbyD7a9yafk45pQkeT21CLwe4-No_C_-0Qx_OBNta4O95bZBMnytqaUR3MH1Mu15e9cs/exec";
 
     await fetch(webhook, {
         method: "POST",
