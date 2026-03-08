@@ -197,16 +197,18 @@
     const grade = document.getElementById("grade").value;
     const motivation = document.getElementById("motivation").value;
 
-    await addDoc(collection(db, "candidatures_metiers"), {
-        discord,
-        discordID,
-        age,
-        metier,
-        grade,
-        motivation,
-        accepte: "N/A",
-        date: new Date()
-    });
+        await addDoc(collection(db, "candidatures_metiers"), {
+    discord,
+    discordID,
+    age,
+    metier,
+    grade,
+    motivation,
+    typeRecrutement: "metier",
+    accepte: "N/A",
+    date: new Date()
+});
+
 
     document.getElementById("statusMessage").textContent =
         "Candidature envoyée avec succès !";
