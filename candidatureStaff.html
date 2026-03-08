@@ -50,6 +50,7 @@
 </main>
 
 <!-- 🔥 SCRIPT FIREBASE -->
+<!-- 🔥 SCRIPT FIREBASE -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
   import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -82,7 +83,8 @@
       grade,
       motivations,
       experience,
-      accepte: "N/A",   // 🔥 Pour le bot Discord
+      typeRecrutement: "staff",   // 🔥 AJOUT ICI
+      accepte: "N/A",             // 🔥 Pour le bot Discord
       date: new Date()
     });
 
@@ -97,6 +99,7 @@
     e.target.reset();
   });
 </script>
+
 
 </body>
 </html>
