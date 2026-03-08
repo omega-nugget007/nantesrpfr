@@ -30,7 +30,6 @@
 
     <form id="recrutementForm">
 
-        <input type="email" id="email" placeholder="Adresse Email" required>
         <input type="text" id="discord" placeholder="Pseudo Discord" required>
         <input type="number" id="age" placeholder="Âge" required>
 
@@ -69,14 +68,12 @@
 
     // 🔥 Fonction d’envoi des candidatures MÉTIERS
     async function envoyerMetiers() {
-        const email = document.getElementById("email").value;
         const discord = document.getElementById("discord").value;
         const age = document.getElementById("age").value;
         const metier = document.getElementById("metier").value;
         const motivation = document.getElementById("motivation").value;
 
         await addDoc(collection(db, "candidatures_metiers"), {
-            email,
             discord,
             age,
             metier,
