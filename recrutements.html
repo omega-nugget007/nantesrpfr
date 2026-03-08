@@ -67,22 +67,29 @@
     const db = getFirestore(app);
 
     // 🔥 Fonction d’envoi des candidatures MÉTIERS
+
     async function envoyerMetiers() {
-        const discord = document.getElementById("discord").value;
-        const age = document.getElementById("age").value;
-        const metier = document.getElementById("metier").value;
-        const motivation = document.getElementById("motivation").value;
+    const email = document.getElementById("email").value;
+    const discord = document.getElementById("discord").value;
+    const age = document.getElementById("age").value;
+    const metier = document.getElementById("metier").value;
+    const motivation = document.getElementById("motivation").value;
 
-        await addDoc(collection(db, "candidatures_metiers"), {
-            discord,
-            age,
-            metier,
-            motivation,
-            date: new Date()
-        });
+    await addDoc(collection(db, "candidatures_metiers"), {
+        email,
+        discord,
+        age,
+        metier,
+        motivation,
+        accepte: "N/A",   // 🔥 Ajout du statut
+        date: new Date()
+    });
 
-        document.getElementById("statusMessage").textContent = "Candidature envoyée avec succès !";
-    }
+    document.getElementById("statusMessage").textContent =
+        "Candidature envoyée avec succès !";
+}
+
+
 
     // 🔥 Empêcher le rechargement + appeler envoyerMetiers()
     document.getElementById("recrutementForm").addEventListener("submit", async (e) => {
