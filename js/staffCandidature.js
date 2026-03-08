@@ -9,7 +9,7 @@ document.getElementById("staffForm").addEventListener("submit", async (e) => {
         email: document.getElementById("email").value
     };
 
-    const webhook = "https://script.google.com/macros/s/AKfycbz04MXqeLTNAk4sp1rgFClWzmKjbtu-AcpgD_VeTdrS1giITXXxRrigdmbKgT1lt8vb/exec";
+    const webhook = "https://script.google.com/macros/s/AKfycbyBX5igOUsF5fccz6hHnlhcy3wztvjBQR04Txygwfcfel6khGDwtphixzmFrr64vFS1YA/exec";
 
     try {
         await fetch(webhook, {
