@@ -30,22 +30,35 @@
 
     <form id="recrutementForm">
 
-        <input type="email" id="email" placeholder="Adresse Email" required>
-        <input type="text" id="discord" placeholder="Pseudo Discord" required>
-        <input type="number" id="age" placeholder="Âge" required>
+    <input type="email" id="email" placeholder="Adresse Email" required>
+    <input type="text" id="discord" placeholder="Pseudo Discord" required>
+    <input type="text" id="discordID" placeholder="ID Discord (ex: 123456789012345678)" required>
+    <input type="number" id="age" placeholder="Âge" required>
 
-        <select id="metier">
-            <option>Police Nationale</option>
-            <option>SDIS 44</option>
-            <option>Neolib</option>
-            <option>Mairie de Nantes</option>
-            <option>DIR Atlantique</option>
-        </select>
+    <select id="metier">
+        <option>Police Nationale</option>
+        <option>SDIS 44</option>
+        <option>Neolib</option>
+        <option>Mairie de Nantes</option>
+        <option>DIR Atlantique</option>
+    </select>
 
-        <textarea id="motivation" placeholder="Motivation" required></textarea>
+    <select id="grade">
+        <option>Stagiaire</option>
+        <option>Agent</option>
+        <option>Brigadier</option>
+        <option>Sergent</option>
+        <option>Lieutenant</option>
+        <option>Capitaine</option>
+        <option>Commandant</option>
+    </select>
 
-        <button type="submit">Envoyer</button>
-    </form>
+    <textarea id="motivation" placeholder="Motivation" required></textarea>
+
+    <button type="submit">Envoyer</button>
+</form>
+
+
 
     <p id="statusMessage"></p>
 </section>
@@ -67,27 +80,31 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // 🔥 Fonction d’envoi des candidatures MÉTIERS
     async function envoyerMetiers() {
-        const email = document.getElementById("email").value;
-        const discord = document.getElementById("discord").value;
-        const age = document.getElementById("age").value;
-        const metier = document.getElementById("metier").value;
-        const motivation = document.getElementById("motivation").value;
+    const email = document.getElementById("email").value;
+    const discord = document.getElementById("discord").value;
+    const discordID = document.getElementById("discordID").value;
+    const age = document.getElementById("age").value;
+    const metier = document.getElementById("metier").value;
+    const grade = document.getElementById("grade").value;
+    const motivation = document.getElementById("motivation").value;
 
-        await addDoc(collection(db, "candidatures_metiers"), {
-            email,
-            discord,
-            age,
-            metier,
-            motivation,
-            accepte: "N/A",   // 🔥 Statut par défaut
-            date: new Date()
-        });
+    await addDoc(collection(db, "candidatures_metiers"), {
+        email,
+        discord,
+        discordID,
+        age,
+        metier,
+        grade,
+        motivation,
+        accepte: "N/A",
+        date: new Date()
+    });
 
-        document.getElementById("statusMessage").textContent =
-            "Candidature envoyée avec succès !";
-    }
+    document.getElementById("statusMessage").textContent =
+        "Candidature envoyée avec succès !";
+}
+
 
     // 🔥 Empêcher le rechargement + appeler envoyerMetiers()
     document.getElementById("recrutementForm").addEventListener("submit", async (e) => {
