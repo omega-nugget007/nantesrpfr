@@ -11,6 +11,7 @@ body {
     background: #0d0d0d;
     color: #fff;
     padding-top: 110px;
+    overflow-x: hidden;
 }
 
 /* ===== NAVBAR ===== */
@@ -23,6 +24,13 @@ header {
     background: rgba(0, 0, 0, 0.55);
     backdrop-filter: blur(18px);
     border-bottom: 2px solid #f5c542;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+    animation: fadeDown 0.8s ease forwards;
+}
+
+@keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .nav-container {
@@ -34,18 +42,25 @@ header {
     align-items: center;
 }
 
+/* LOGO */
 .logo {
     font-size: 28px;
     font-weight: 800;
     color: #fff;
     letter-spacing: 1px;
+    animation: glowLogo 3s infinite alternate;
+}
+
+@keyframes glowLogo {
+    from { text-shadow: 0 0 5px #f5c542; }
+    to { text-shadow: 0 0 20px #f5c542; }
 }
 
 .logo span {
     color: #f5c542;
 }
 
-/* ===== NAV LINKS ===== */
+/* NAV LINKS */
 .navbar {
     display: flex;
     gap: 30px;
@@ -63,18 +78,20 @@ header {
 .navbar a:hover {
     background: rgba(245, 197, 66, 0.25);
     color: #f5c542;
+    box-shadow: 0 0 12px rgba(245, 197, 66, 0.6);
 }
 
 .navbar .active {
     background: rgba(245, 197, 66, 0.35);
     color: #f5c542;
+    box-shadow: 0 0 12px rgba(245, 197, 66, 0.8);
 }
 
-/* ===== BURGER MENU ===== */
+/* BURGER MENU */
 #menu-toggle { display: none; }
 .menu-icon { display: none; font-size: 32px; cursor: pointer; color: #fff; }
 
-/* ===== RESPONSIVE NAVBAR ===== */
+/* RESPONSIVE NAVBAR */
 @media (max-width: 850px) {
     .navbar {
         position: absolute;
@@ -86,6 +103,7 @@ header {
         flex-direction: column;
         display: none;
         padding: 15px 0;
+        border-bottom: 2px solid #f5c542;
     }
 
     .navbar a {
@@ -113,11 +131,25 @@ header {
     align-items: center;
     text-align: center;
     color: white;
+
+    /* Animation zoom lent */
+    animation: heroZoom 18s ease-in-out infinite alternate;
+}
+
+@keyframes heroZoom {
+    from { background-size: 100%; }
+    to { background-size: 110%; }
 }
 
 .hero-content {
     max-width: 700px;
     padding: 20px;
+    animation: fadeIn 1.2s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* ===== HERO TITLE ===== */
@@ -126,6 +158,14 @@ header {
     color: #f5c542;
     font-weight: 800;
     text-shadow: 0 0 15px rgba(0,0,0,0.8);
+
+    /* Animation glow pulsant */
+    animation: titleGlow 2.5s infinite alternate;
+}
+
+@keyframes titleGlow {
+    from { text-shadow: 0 0 10px #f5c542; }
+    to { text-shadow: 0 0 25px #f5c542; }
 }
 
 /* ===== HERO TEXT ===== */
@@ -133,6 +173,7 @@ header {
     font-size: 22px;
     margin-top: 10px;
     opacity: 0.9;
+    animation: fadeIn 1.8s ease forwards;
 }
 
 /* ===== BUTTON ===== */
@@ -148,11 +189,20 @@ header {
     text-decoration: none;
     transition: 0.25s;
     box-shadow: 0 0 12px rgba(245, 197, 66, 0.4);
+
+    /* Animation pulsation */
+    animation: pulseBtn 2s infinite ease-in-out;
+}
+
+@keyframes pulseBtn {
+    0% { transform: scale(1); box-shadow: 0 0 10px rgba(245,197,66,0.4); }
+    50% { transform: scale(1.07); box-shadow: 0 0 20px rgba(245,197,66,0.7); }
+    100% { transform: scale(1); box-shadow: 0 0 10px rgba(245,197,66,0.4); }
 }
 
 .btn:hover {
-    transform: scale(1.07);
-    box-shadow: 0 0 18px rgba(245, 197, 66, 0.6);
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(245, 197, 66, 0.8);
 }
 
 /* ===== RESPONSIVE HERO ===== */
@@ -160,54 +210,4 @@ header {
     .hero h2 { font-size: 45px; }
     .hero p { font-size: 17px; }
     .btn { font-size: 17px; padding: 12px 25px; margin-top: 45px; }
-}
-
-/* ===== COUNTERS ===== */
-.counters {
-    margin-top: 30px;
-    display: flex;
-    gap: 30px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.counter-box {
-    background: rgba(255,255,255,0.12);
-    backdrop-filter: blur(10px);
-    border: 2px solid #f5c542;
-    padding: 18px 28px;
-    border-radius: 12px;
-    text-align: center;
-    min-width: 150px;
-    box-shadow: 0 0 12px rgba(0,0,0,0.4);
-}
-
-.counter-box span {
-    font-size: 36px;
-    font-weight: 800;
-    color: #f5c542;
-    display: block;
-}
-
-.counter-box p {
-    margin: 0;
-    font-size: 16px;
-    color: white;
-    opacity: 0.9;
-}
-
-/* ===== RESPONSIVE COUNTERS ===== */
-@media (max-width: 600px) {
-    .counters {
-        gap: 15px;
-    }
-
-    .counter-box {
-        min-width: 120px;
-        padding: 12px 18px;
-    }
-
-    .counter-box span {
-        font-size: 28px;
-    }
 }
