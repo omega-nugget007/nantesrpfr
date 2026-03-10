@@ -1,98 +1,29 @@
-/* Décale tout le contenu sous la navbar */
-body {
+/* ===== RESET ===== */
+* {
     margin: 0;
-    font-family: Poppins, sans-serif;
-    background: #f7f2e8;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== GLOBAL ===== */
+body {
+    font-family: "Poppins", sans-serif;
+    background: #0d0d0d;
+    color: #fff;
     padding-top: 120px;
 }
 
-
-
-
-header {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px 50px;
-    background: rgba(255,255,255,0.7);
-    border-bottom: 2px solid #f5c542;
-}
-
-.logo span {
-    color: #f29f05;
-}
-
-nav a {
-    margin-left: 20px;
-    text-decoration: none;
-    color: #1a1a1a;
-}
-
-/* CARTES */
-.cards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 40px;
-    justify-content: center;
-}
-
-.card {
-    width: 230px;
-    height: 140px;
-    border-radius: 12px;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: flex-end;
-    padding: 15px;
-    color: white;
-    text-shadow: 0 0 10px #000;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    transition: 0.3s;
-}
-
-.card:hover {
-    transform: scale(1.05);
-}
-
-/* FILTRE */
-.card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-    z-index: 1;
-}
-
-.card h3 {
-    position: relative;
-    z-index: 2;
-    margin: 0;
-}
-
-/* IMAGES */
-.card-sdis { background-image: url('../assets/sdis44.jpg'); }
-.card-police { background-image: url('../assets/police.webp'); }
-.card-neolib { background-image: url('../assets/neolib.png'); }
-.card-mairie { background-image: url('../assets/mairie.png'); }
-.card-dir { background-image: url('../assets/dir.webp'); }
-
-/* NAVBAR GLOBALE */
-/* NAVBAR FIXE */
-/* NAVBAR FIXE AVEC BLUR */
+/* ===== NAVBAR ===== */
 header {
     width: 100%;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 100;
-    background: rgba(255, 255, 255, 0.35); /* transparence */
-    backdrop-filter: blur(18px); /* BLUR FORT */
-    -webkit-backdrop-filter: blur(18px); /* Safari */
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(18px);
     border-bottom: 2px solid #f5c542;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.25);
 }
 
 .nav-container {
@@ -106,14 +37,15 @@ header {
 
 /* LOGO */
 .logo {
-    font-size: 26px;
-    font-weight: 700;
-    color: #1a1a1a;
+    font-size: 28px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: 1px;
 }
 
 .logo span {
-    color: #f29f05;
-    text-shadow: 0 0 10px #f5c542;
+    color: #f5c542;
+    text-shadow: 0 0 10px rgba(245, 197, 66, 0.7);
 }
 
 /* NAV LINKS */
@@ -125,48 +57,38 @@ header {
 .navbar a {
     text-decoration: none;
     font-size: 18px;
-    color: #1a1a1a;
+    color: #fff;
     padding: 8px 14px;
     border-radius: 6px;
-    transition: 0.3s;
+    transition: 0.25s;
 }
 
 .navbar a:hover {
     background: rgba(245, 197, 66, 0.25);
-    color: #f29f05;
+    color: #f5c542;
     box-shadow: 0 0 12px rgba(245, 197, 66, 0.6);
 }
 
 .navbar .active {
     background: rgba(245, 197, 66, 0.35);
-    color: #f29f05;
+    color: #f5c542;
     box-shadow: 0 0 12px rgba(245, 197, 66, 0.8);
 }
 
-/* MENU BURGER */
-#menu-toggle {
-    display: none;
-}
+/* BURGER MENU */
+#menu-toggle { display: none; }
+.menu-icon { display: none; font-size: 32px; cursor: pointer; color: #fff; }
 
-.menu-icon {
-    display: none;
-    font-size: 30px;
-    cursor: pointer;
-}
-
-/* RESPONSIVE */
+/* RESPONSIVE NAVBAR */
 @media (max-width: 850px) {
-
     .navbar {
         position: absolute;
         top: 70px;
         right: 0;
         width: 100%;
-        background: rgba(255,255,255,0.75);
-        backdrop-filter: blur(18px); /* BLUR SUR MENU MOBILE */
-        -webkit-backdrop-filter: blur(18px);
+        background: rgba(0,0,0,0.85);
+        backdrop-filter: blur(18px);
         flex-direction: column;
-        gap: 0;
         display: none;
         padding: 15px 0;
         border-bottom: 2px solid #f5c542;
@@ -179,11 +101,79 @@ header {
         font-size: 20px;
     }
 
-    .menu-icon {
-        display: block;
-    }
+    .menu-icon { display: block; }
 
     #menu-toggle:checked ~ .navbar {
         display: flex;
+    }
+}
+
+/* ===== CARDS ===== */
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    padding: 40px;
+    justify-content: center;
+}
+
+/* ===== CARD STYLE ===== */
+.card {
+    width: 260px;
+    height: 160px;
+    border-radius: 14px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    padding: 18px;
+    color: white;
+    text-shadow: 0 0 12px #000;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.45);
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+/* Hover effet premium */
+.card:hover {
+    transform: scale(1.07);
+    box-shadow: 0 12px 25px rgba(245, 197, 66, 0.35);
+}
+
+/* Gradient overlay */
+.card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.1));
+    z-index: 1;
+}
+
+.card h3 {
+    position: relative;
+    z-index: 2;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+/* ===== IMAGES ===== */
+.card-sdis { background-image: url('../assets/sdis44.jpg'); }
+.card-police { background-image: url('../assets/police.webp'); }
+.card-neolib { background-image: url('../assets/neolib.png'); }
+.card-mairie { background-image: url('../assets/mairie.png'); }
+.card-dir { background-image: url('../assets/dir.webp'); }
+
+/* ===== RESPONSIVE CARDS ===== */
+@media (max-width: 600px) {
+    .card {
+        width: 90%;
+        height: 150px;
+    }
+
+    .card h3 {
+        font-size: 18px;
     }
 }
