@@ -12,6 +12,7 @@ body {
     color: #fff;
     padding-top: 110px;
     overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
 /* ===== NAVBAR ===== */
@@ -132,7 +133,6 @@ header {
     text-align: center;
     color: white;
 
-    /* Animation zoom lent */
     animation: heroZoom 18s ease-in-out infinite alternate;
 }
 
@@ -158,8 +158,6 @@ header {
     color: #f5c542;
     font-weight: 800;
     text-shadow: 0 0 15px rgba(0,0,0,0.8);
-
-    /* Animation glow pulsant */
     animation: titleGlow 2.5s infinite alternate;
 }
 
@@ -189,8 +187,6 @@ header {
     text-decoration: none;
     transition: 0.25s;
     box-shadow: 0 0 12px rgba(245, 197, 66, 0.4);
-
-    /* Animation pulsation */
     animation: pulseBtn 2s infinite ease-in-out;
 }
 
@@ -205,9 +201,91 @@ header {
     box-shadow: 0 0 25px rgba(245, 197, 66, 0.8);
 }
 
-/* ===== RESPONSIVE HERO ===== */
-@media (max-width: 700px) {
-    .hero h2 { font-size: 45px; }
-    .hero p { font-size: 17px; }
-    .btn { font-size: 17px; padding: 12px 25px; margin-top: 45px; }
+/* ===== SECTIONS ===== */
+section {
+    padding: 80px 20px;
+    text-align: center;
+}
+
+/* ===== PRESENTATION ===== */
+.presentation h2 {
+    font-size: 40px;
+    color: #f5c542;
+    margin-bottom: 20px;
+}
+
+.presentation p {
+    max-width: 800px;
+    margin: auto;
+    font-size: 18px;
+    opacity: 0.85;
+}
+
+/* ===== FEATURES ===== */
+.features {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.feature {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid #f5c542;
+    padding: 25px;
+    width: 260px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(245,197,66,0.15);
+    transition: 0.3s;
+}
+
+.feature:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 25px rgba(245,197,66,0.4);
+}
+
+/* ===== METIERS ===== */
+.metiers h2 {
+    font-size: 40px;
+    color: #f5c542;
+    margin-bottom: 30px;
+}
+
+.metiers-grid {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.metier-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid #f5c542;
+    padding: 20px 30px;
+    border-radius: 10px;
+    font-size: 20px;
+    transition: 0.3s;
+}
+
+.metier-card:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 20px rgba(245,197,66,0.5);
+}
+
+/* ===== CTA ===== */
+.cta h2 {
+    font-size: 38px;
+    margin-bottom: 20px;
+}
+
+/* ===== REVEAL ANIMATION ===== */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 0.8s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
 }
