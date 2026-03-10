@@ -1,21 +1,27 @@
-/* GLOBAL */
-body {
+/* ===== RESET ===== */
+* {
     margin: 0;
-    font-family: Poppins, sans-serif;
-    background: #f7f2e8;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== GLOBAL ===== */
+body {
+    font-family: "Poppins", sans-serif;
+    background: #0d0d0d;
+    color: #fff;
     padding-top: 110px;
 }
 
-/* NAVBAR */
+/* ===== NAVBAR ===== */
 header {
     width: 100%;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 100;
-    background: rgba(255, 255, 255, 0.35);
+    background: rgba(0, 0, 0, 0.55);
     backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
     border-bottom: 2px solid #f5c542;
 }
 
@@ -29,16 +35,17 @@ header {
 }
 
 .logo {
-    font-size: 26px;
-    font-weight: 700;
-    color: #1a1a1a;
+    font-size: 28px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: 1px;
 }
 
 .logo span {
-    color: #f29f05;
+    color: #f5c542;
 }
 
-/* NAV LINKS */
+/* ===== NAV LINKS ===== */
 .navbar {
     display: flex;
     gap: 30px;
@@ -47,34 +54,34 @@ header {
 .navbar a {
     text-decoration: none;
     font-size: 18px;
-    color: #1a1a1a;
+    color: #fff;
     padding: 8px 14px;
     border-radius: 6px;
-    transition: 0.3s;
+    transition: 0.25s;
 }
 
 .navbar a:hover {
     background: rgba(245, 197, 66, 0.25);
-    color: #f29f05;
+    color: #f5c542;
 }
 
 .navbar .active {
     background: rgba(245, 197, 66, 0.35);
-    color: #f29f05;
+    color: #f5c542;
 }
 
-/* MENU BURGER */
+/* ===== BURGER MENU ===== */
 #menu-toggle { display: none; }
-.menu-icon { display: none; font-size: 30px; cursor: pointer; }
+.menu-icon { display: none; font-size: 32px; cursor: pointer; color: #fff; }
 
-/* RESPONSIVE NAVBAR */
+/* ===== RESPONSIVE NAVBAR ===== */
 @media (max-width: 850px) {
     .navbar {
         position: absolute;
         top: 70px;
         right: 0;
         width: 100%;
-        background: rgba(255,255,255,0.85);
+        background: rgba(0,0,0,0.85);
         backdrop-filter: blur(18px);
         flex-direction: column;
         display: none;
@@ -95,12 +102,11 @@ header {
     }
 }
 
-/* HERO */
-/* HERO */
+/* ===== HERO ===== */
 .hero {
     height: 100vh;
     background:
-        linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.7)),
+        linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.75)),
         url('../assets/acceuil.jpg') center/cover no-repeat;
     display: flex;
     justify-content: center;
@@ -114,53 +120,49 @@ header {
     padding: 20px;
 }
 
-/* TITRE */
+/* ===== HERO TITLE ===== */
 .hero h2 {
-    font-size: 60px;
+    font-size: 70px;
     color: #f5c542;
+    font-weight: 800;
+    text-shadow: 0 0 15px rgba(0,0,0,0.8);
 }
 
-/* TEXTE */
+/* ===== HERO TEXT ===== */
 .hero p {
-    font-size: 20px;
+    font-size: 22px;
+    margin-top: 10px;
+    opacity: 0.9;
 }
 
-/* COMPTEURS (inchangé) */
-.counters {
-    margin-top: 30px;
-    display: flex;
-    gap: 30px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-/* BOUTON DESCENDU PLUS BAS */
+/* ===== BUTTON ===== */
 .btn {
     display: inline-block;
-    margin-top: 55px; /* ← ICI : bouton plus bas */
-    padding: 14px 30px;
+    margin-top: 55px;
+    padding: 16px 35px;
     background: linear-gradient(45deg, #f29f05, #f5c542);
     color: #1a1a1a;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 18px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 20px;
     text-decoration: none;
-    transition: 0.3s;
+    transition: 0.25s;
+    box-shadow: 0 0 12px rgba(245, 197, 66, 0.4);
 }
 
 .btn:hover {
-    transform: scale(1.05);
+    transform: scale(1.07);
+    box-shadow: 0 0 18px rgba(245, 197, 66, 0.6);
 }
 
-/* RESPONSIVE */
+/* ===== RESPONSIVE HERO ===== */
 @media (max-width: 700px) {
-    .hero h2 { font-size: 40px; }
-    .hero p { font-size: 16px; }
-    .btn { font-size: 16px; padding: 12px 25px; margin-top: 45px; }
+    .hero h2 { font-size: 45px; }
+    .hero p { font-size: 17px; }
+    .btn { font-size: 17px; padding: 12px 25px; margin-top: 45px; }
 }
 
-
-/* COMPTEURS */
+/* ===== COUNTERS ===== */
 .counters {
     margin-top: 30px;
     display: flex;
@@ -170,31 +172,31 @@ header {
 }
 
 .counter-box {
-    background: rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.12);
     backdrop-filter: blur(10px);
     border: 2px solid #f5c542;
-    padding: 15px 25px;
+    padding: 18px 28px;
     border-radius: 12px;
     text-align: center;
-    min-width: 140px;
-    box-shadow: 0 0 12px rgba(0,0,0,0.3);
+    min-width: 150px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.4);
 }
 
 .counter-box span {
-    font-size: 32px;
-    font-weight: 700;
+    font-size: 36px;
+    font-weight: 800;
     color: #f5c542;
     display: block;
 }
 
 .counter-box p {
     margin: 0;
-    font-size: 15px;
+    font-size: 16px;
     color: white;
-    text-shadow: 0 0 10px #000;
+    opacity: 0.9;
 }
 
-/* RESPONSIVE COMPTEURS */
+/* ===== RESPONSIVE COUNTERS ===== */
 @media (max-width: 600px) {
     .counters {
         gap: 15px;
@@ -206,6 +208,6 @@ header {
     }
 
     .counter-box span {
-        font-size: 26px;
+        font-size: 28px;
     }
 }
