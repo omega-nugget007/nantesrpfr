@@ -17,6 +17,15 @@ body {
     background-color: #0d0d0d; 
 }
 
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(2px);
+    z-index: -1;
+}
+
 /* ===== NAVBAR ===== */
 header {
     width: 100%;
@@ -205,9 +214,22 @@ header {
 
 /* ===== SECTIONS ===== */
 section {
-    padding: 80px 20px;
-    text-align: center;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(245, 197, 66, 0.25);
+    backdrop-filter: blur(12px);
+    border-radius: 14px;
+    margin: 60px auto;
+    padding: 60px 30px;
+    max-width: 1100px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.4);
 }
+
+section {
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+
 
 /* ===== PRESENTATION ===== */
 .presentation h2 {
@@ -232,14 +254,12 @@ section {
 }
 
 .feature {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid #f5c542;
-    padding: 25px;
-    width: 260px;
-    border-radius: 12px;
-    box-shadow: 0 0 15px rgba(245,197,66,0.15);
-    transition: 0.3s;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(245,197,66,0.25);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(245,197,66,0.15);
 }
+
 
 .feature:hover {
     transform: translateY(-10px);
@@ -261,18 +281,22 @@ section {
 }
 
 .metier-card {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid #f5c542;
-    padding: 20px 30px;
-    border-radius: 10px;
-    font-size: 20px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(245, 197, 66, 0.3);
+    backdrop-filter: blur(10px);
+    padding: 25px 35px;
+    border-radius: 12px;
+    font-size: 22px;
+    font-weight: 600;
     transition: 0.3s;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
 }
 
 .metier-card:hover {
-    transform: scale(1.08);
-    box-shadow: 0 0 20px rgba(245,197,66,0.5);
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 0 25px rgba(245,197,66,0.6);
 }
+
 
 /* ===== CTA ===== */
 .cta h2 {
