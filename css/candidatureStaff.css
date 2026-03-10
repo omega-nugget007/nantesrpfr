@@ -15,7 +15,7 @@ body {
 
 /* ===== HEADER ===== */
 header {
-  background: #ff6600;
+  background: #f5c542;
   padding: 25px;
   text-align: center;
   border-radius: 10px;
@@ -36,14 +36,14 @@ main {
   padding: 30px;
   background: #141414;
   border-radius: 12px;
-  border: 1px solid #ff6600;
+  border: 1px solid #f5c542;
   box-shadow: 0 0 20px rgba(255, 102, 0, 0.2);
 }
 
 h1 {
   text-align: center;
   margin-bottom: 25px;
-  color: #ff6600;
+  color: #f5c542;
   font-size: 24px;
   font-weight: 700;
 }
@@ -76,7 +76,7 @@ select {
 input:focus,
 textarea:focus,
 select:focus {
-  border-color: #ff6600;
+  border-color: #f5c542;
   outline: none;
   box-shadow: 0 0 8px rgba(255, 102, 0, 0.4);
 }
@@ -103,7 +103,7 @@ button {
   width: 100%;
   margin-top: 25px;
   padding: 14px;
-  background: #ff6600;
+  background: #f5c542;
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -114,7 +114,7 @@ button {
 }
 
 button:hover {
-  background: #e65c00;
+  background: #f5c542;
   box-shadow: 0 0 12px rgba(255, 102, 0, 0.5);
 }
 
@@ -138,3 +138,4 @@ button:hover {
   font-weight: 600;
   text-align: center;
 }
+
