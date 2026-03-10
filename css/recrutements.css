@@ -8,9 +8,20 @@
 /* ===== GLOBAL ===== */
 body {
     font-family: "Poppins", sans-serif;
-    background: #0d0d0d;
+    background: url('../assets/background-city.jpg') center/cover fixed no-repeat;
+    background-color: #0d0d0d;
     color: #fff;
     padding-top: 120px;
+}
+
+/* ===== BACKGROUND OVERLAY ===== */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(2px);
+    z-index: -1;
 }
 
 /* ===== NAVBAR ===== */
@@ -41,11 +52,16 @@ header {
     font-weight: 800;
     color: #fff;
     letter-spacing: 1px;
+    animation: glowLogo 3s infinite alternate;
+}
+
+@keyframes glowLogo {
+    from { text-shadow: 0 0 5px #f5c542; }
+    to { text-shadow: 0 0 20px #f5c542; }
 }
 
 .logo span {
     color: #f5c542;
-    text-shadow: 0 0 10px rgba(245, 197, 66, 0.7);
 }
 
 /* NAV LINKS */
@@ -115,25 +131,32 @@ header {
 }
 
 .form-section h2 {
-    font-size: 32px;
+    font-size: 36px;
     color: #f5c542;
     margin-bottom: 30px;
     font-weight: 700;
     text-shadow: 0 0 12px rgba(245, 197, 66, 0.4);
+    animation: fadeIn 1s ease forwards;
 }
 
 /* ===== FORM ===== */
 form {
-    width: 380px;
+    width: 420px;
     margin: auto;
-    padding: 30px;
+    padding: 35px;
     background: rgba(255,255,255,0.05);
-    border: 1px solid #f5c542;
-    border-radius: 12px;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 0 20px rgba(245, 197, 66, 0.15);
+    border: 1px solid rgba(245, 197, 66, 0.35);
+    border-radius: 14px;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 0 25px rgba(245, 197, 66, 0.15);
     display: flex;
     flex-direction: column;
+    animation: fadeUp 1s ease forwards;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* INPUTS */
@@ -142,7 +165,7 @@ input, select, textarea {
     padding: 14px;
     border-radius: 6px;
     border: 1px solid #333;
-    background: #1a1a1a;
+    background: rgba(0,0,0,0.55);
     color: #fff;
     font-size: 16px;
     transition: 0.25s;
@@ -172,11 +195,18 @@ button {
     cursor: pointer;
     color: #1a1a1a;
     transition: 0.25s;
+    animation: pulseBtn 2s infinite ease-in-out;
+}
+
+@keyframes pulseBtn {
+    0% { transform: scale(1); box-shadow: 0 0 10px rgba(245,197,66,0.4); }
+    50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(245,197,66,0.7); }
+    100% { transform: scale(1); box-shadow: 0 0 10px rgba(245,197,66,0.4); }
 }
 
 button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(245, 197, 66, 0.5);
+    transform: scale(1.08);
+    box-shadow: 0 0 20px rgba(245, 197, 66, 0.6);
 }
 
 /* STATUS MESSAGE */
