@@ -1,51 +1,79 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background: #0d0d0d;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+/* ===== GLOBAL ===== */
+body {
+  font-family: "Inter", Arial, sans-serif;
+  background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+  color: #fff;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ===== LOGIN BOX ===== */
 .login-container {
-    background: #1a1a1a;
-    padding: 30px;
-    border-radius: 10px;
-    width: 350px;
-    text-align: center;
-    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+  background: #141414;
+  padding: 35px;
+  width: 360px;
+  border-radius: 12px;
+  border: 1px solid #ff6600;
+  box-shadow: 0 0 20px rgba(255, 102, 0, 0.25);
+  text-align: center;
 }
 
 .login-container h2 {
-    margin-bottom: 20px;
+  margin-bottom: 25px;
+  color: #ff6600;
+  font-size: 26px;
+  font-weight: 700;
 }
 
+/* ===== INPUTS ===== */
 input {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 5px;
+  width: 100%;
+  padding: 12px;
+  margin: 12px 0;
+  border: 1px solid #333;
+  border-radius: 6px;
+  background: #1f1f1f;
+  color: #fff;
+  font-size: 16px;
+  transition: 0.2s;
 }
 
+input:focus {
+  border-color: #ff6600;
+  outline: none;
+  box-shadow: 0 0 8px rgba(255, 102, 0, 0.4);
+}
+
+/* ===== BUTTON ===== */
 button {
-    width: 100%;
-    padding: 12px;
-    background: #ffcc00;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
+  width: 100%;
+  padding: 14px;
+  background: #ff6600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 17px;
+  transition: 0.2s;
 }
 
 button:hover {
-    background: #e6b800;
+  background: #e65c00;
+  box-shadow: 0 0 12px rgba(255, 102, 0, 0, 0.5);
 }
 
+/* ===== ERROR ===== */
 #errorMessage {
-    color: red;
-    margin-top: 10px;
+  color: #ff4d4d;
+  margin-top: 12px;
+  font-weight: 600;
 }
