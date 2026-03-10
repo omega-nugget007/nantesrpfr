@@ -60,92 +60,93 @@
     const gradeSelect = document.getElementById("grade");
 
     const grades = {
-        "SDIS 44": [
-            "Colonel",
-            "Lieutenant Colonel",
-            "Commandant",
-            "Capitaine",
-            "Lieutenant",
-            "Adjudant chef",
-            "Adjudant",
-            "Sergent-Chef",
-            "Sergent",
-            "Caporal-chef",
-            "Caporal",
-            "Sapeur 1er classe",
-            "Sapeur 2e classe"
-        ],
+    "SDIS 44": [
+        "Colonel",
+        "Lieutenant Colonel",
+        "Commandant",
+        "Capitaine",
+        "Lieutenant",
+        "Adjudant chef",
+        "Adjudant",
+        "Sergent-Chef",
+        "Sergent",
+        "Caporal-chef",
+        "Caporal",
+        "Sapeur 1er classe",
+        "Sapeur 2e classe"
+    ],
 
-        "Police Nationale": [
-            "==== DIRECTION PN ====",
-            "Directeur Général de la Police Nationale",
-            "Directeur des Service Actif",
-            "Inspecteur Général",
-            "Controleur Général",
+    "Police Nationale": [
+        "==== DIRECTION PN ====",
+        "Directeur Général de la Police Nationale",
+        "Directeur des Service Actif",
+        "Inspecteur Général",
+        "Controleur Général",
 
-            "==== SOUS DIRECTION ====",
-            "Commissaire Général",
-            "Commissaire Divisionnaire",
-            "Commissaire Police",
-            "Commissaire Élève",
+        "==== SOUS DIRECTION ====",
+        "Commissaire Général",
+        "Commissaire Divisionnaire",
+        "Commissaire Police",
+        "Commissaire Élève",
 
-            "==== CORPS DE COMMANDEMENT ====",
-            "Commandant Divisionnaire Fonctionnel",
-            "Commandant Divisionnaire",
-            "Commandant Police",
-            "Capitaine de Police",
-            "Lieutenant de Police",
-            "Capitaine Stagiaire",
-            "Capitaine Élève",
+        "==== CORPS DE COMMANDEMENT ====",
+        "Commandant Divisionnaire Fonctionnel",
+        "Commandant Divisionnaire",
+        "Commandant Police",
+        "Capitaine de Police",
+        "Lieutenant de Police",
+        "Capitaine Stagiaire",
+        "Capitaine Élève",
 
-            "==== CORPS D’ENCADREMENT ET D’APPLICATION ====",
-            "Major Exceptionnel",
-            "Major de Police",
-            "Brigadier Chef",
-            "Brigadier",
-            "Sous Brigadier",
-            "Gardien de la Paix",
-            "Élève Gardien de la Paix",
-            "Policier Adjoint",
+        "==== CORPS D’ENCADREMENT ET D’APPLICATION ====",
+        "Major Exceptionnel",
+        "Major de Police",
+        "Brigadier Chef",
+        "Brigadier",
+        "Sous Brigadier",
+        "Gardien de la Paix",
+        "Élève Gardien de la Paix",
+        "Policier Adjoint",
 
-            "==== OPTIONS ====",
-            "Brigade Motorisée",
-            "Brigade Anticriminalité",
-            "Brigade des Mineures",
-            "Brigade Cynophile",
-            "RAID",
-            "BRI",
-            "CRS",
-            "Police Judiciaire"
-        ],
+        "==== OPTIONS ====",
+        "Brigade Motorisée",
+        "Brigade Anticriminalité",
+        "Brigade des Mineures",
+        "Brigade Cynophile",
+        "RAID",
+        "BRI",
+        "CRS",
+        "Police Judiciaire"
+    ],
 
-        "Neolib": [
-            "Formateur Spécialité Technicien",
-            "Conducteur Bus",
-            "Controleur",
-            "Mecanicien technicien",
-            "Regulateur"
-        ],
+    "Neolib": [
+        "Formateur Spécialité Technicien",
+        "Conducteur Bus",
+        "Controleur",
+        "Mecanicien technicien",
+        "Regulateur"
+    ],
 
-        "Mairie de Nantes": [
-           "MAIRE"
-           "ADJOINT DU MAIRE"
-           "PRÉFET"
-           "SECRÉTAIRE"
-           "CHEF SÉCURITÉ"
-           "Chauffeur du maire"
-           "GARDES DU CORPS"
-        ],
+    "Mairie de Nantes": [
+        "Maire",
+        "Adjoint du Maire",
+        "Préfet",
+        "Secrétaire",
+        "Chef Sécurité",
+        "Chauffeur du Maire",
+        "Gardes du Corps"
+    ],
 
-        "DIR Atlantique": [
-            "Chef de Garage"
-            "Formateur"
-            "Mécanicien Confirmé"
-            "Dépanneur"
-            "Mécanicien"
-            "Assistant Dépanneur"
-        ]
-    };
+    "DIR Atlantique": [
+        "Chef de Garage",
+        "Formateur",
+        "Mécanicien Confirmé",
+        "Dépanneur",
+        "Mécanicien",
+        "Assistant Dépanneur"
+    ]
+};
+
 
     function updateGrades() {
         const selected = metierSelect.value;
