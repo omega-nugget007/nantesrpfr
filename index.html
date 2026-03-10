@@ -20,19 +20,81 @@
             <a href="recrutements.html">Recrutements</a>
             <a href="candidatureStaff.html">Devenir Testeur Roblox</a>
             <a href="connexion.html">Connexion Staff</a>
-            
         </nav>
     </div>
 </header>
 
+<!-- ================= HERO ================= -->
 <section class="hero">
-    <div class="hero-content">
+    <div class="hero-content reveal">
         <h2>Nantes RP</h2>
         <p>Le serveur RolePlay inspiré de la ville de Nantes.</p>
-
         <a class="btn" href="candidatureStaff.html">Rejoindre l’aventure</a>
     </div>
 </section>
+
+<!-- ================= PRESENTATION ================= -->
+<section class="presentation reveal">
+    <h2>Un univers RP unique</h2>
+    <p>
+        Nantes RP vous plonge dans une expérience immersive, inspirée de la véritable ville de Nantes.
+        Rejoignez une communauté active, des métiers variés, des systèmes avancés et un gameplay réaliste.
+    </p>
+</section>
+
+<!-- ================= FEATURES ================= -->
+<section class="features">
+    <div class="feature reveal">
+        <h3>🔰 Métiers variés</h3>
+        <p>Police, SDIS, Neolib, Mairie, DIR… choisissez votre voie.</p>
+    </div>
+
+    <div class="feature reveal">
+        <h3>⚙️ Systèmes avancés</h3>
+        <p>Scripts optimisés, interactions réalistes, gameplay fluide.</p>
+    </div>
+
+    <div class="feature reveal">
+        <h3>🌍 Map immersive</h3>
+        <p>Une reproduction fidèle de Nantes adaptée au RolePlay.</p>
+    </div>
+</section>
+
+<!-- ================= METIERS ================= -->
+<section class="metiers reveal">
+    <h2>Les métiers disponibles</h2>
+
+    <div class="metiers-grid">
+        <div class="metier-card">Police Nationale</div>
+        <div class="metier-card">SDIS 44</div>
+        <div class="metier-card">Neolib</div>
+        <div class="metier-card">Mairie de Nantes</div>
+        <div class="metier-card">DIR Atlantique</div>
+    </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="cta reveal">
+    <h2>Prêt à rejoindre l’aventure ?</h2>
+    <a href="recrutements.html" class="btn">Voir les recrutements</a>
+</section>
+
+<script>
+    // Animation scroll reveal
+    const reveals = document.querySelectorAll(".reveal");
+
+    function revealOnScroll() {
+        for (let el of reveals) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 100) {
+                el.classList.add("active");
+            }
+        }
+    }
+
+    window.addEventListener("scroll", revealOnScroll);
+    revealOnScroll();
+</script>
 
 </body>
 </html>
