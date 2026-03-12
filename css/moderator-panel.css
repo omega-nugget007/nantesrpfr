@@ -23,6 +23,16 @@ body::before {
     z-index: -1;
 }
 
+.team-line {
+    font-size: 18px;
+    margin: 6px 0;
+    padding: 6px 10px;
+    background: rgba(255,255,255,0.05);
+    border-left: 3px solid #f5c542;
+    border-radius: 6px;
+}
+
+
 /* ===== NAVBAR ===== */
 header {
     width: 100%;
