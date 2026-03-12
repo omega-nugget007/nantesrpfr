@@ -19,6 +19,34 @@
     <p id="errorMessage"></p>
 </div>
 
-<script src="js/connexion-staff.js"></script>
+<script>
+// Comptes autorisés
+const accounts = {
+    "moderator": {
+        password: "nantesrp2026",
+        redirect: "moderator-panel.html"
+    },
+    "admin": {
+        password: "nantesrp2025",
+        redirect: "admin-panel.html"
+    }
+};
+
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const user = document.getElementById("username").value.trim();
+    const pass = document.getElementById("password").value.trim();
+    const error = document.getElementById("errorMessage");
+
+    if (accounts[user] && accounts[user].password === pass) {
+        // Redirection selon le rôle
+        window.location.href = accounts[user].redirect;
+    } else {
+        error.textContent = "❌ Identifiants incorrects.";
+    }
+});
+</script>
+
 </body>
 </html>
