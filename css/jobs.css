@@ -8,9 +8,21 @@
 /* ===== GLOBAL ===== */
 body {
     font-family: "Poppins", sans-serif;
-    background: #0d0d0d;
+    background: url('../assets/background-city.jpg') center/cover fixed no-repeat;
+    background-color: #0d0d0d;
     color: #fff;
     padding-top: 120px;
+    overflow-x: hidden;
+}
+
+/* ===== OVERLAY ===== */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(3px);
+    z-index: -1;
 }
 
 /* ===== NAVBAR ===== */
@@ -72,14 +84,12 @@ header {
 .navbar .active {
     background: rgba(245, 197, 66, 0.35);
     color: #f5c542;
-    box-shadow: 0 0 12px rgba(245, 197, 66, 0.8);
 }
 
 /* BURGER MENU */
 #menu-toggle { display: none; }
 .menu-icon { display: none; font-size: 32px; cursor: pointer; color: #fff; }
 
-/* RESPONSIVE NAVBAR */
 @media (max-width: 850px) {
     .navbar {
         position: absolute;
@@ -108,72 +118,129 @@ header {
     }
 }
 
-/* ===== CARDS ===== */
-.cards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 25px;
-    padding: 40px;
-    justify-content: center;
+/* ===== PAGE STRUCTURE ===== */
+.jobs-page {
+    max-width: 1200px;
+    margin: 0 auto 60px auto;
+    padding: 20px;
 }
 
-/* ===== CARD STYLE ===== */
-.card {
-    width: 260px;
-    height: 160px;
+/* HERO */
+.jobs-hero {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.jobs-hero-content {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(245,197,66,0.3);
+    backdrop-filter: blur(12px);
     border-radius: 14px;
+    padding: 40px 25px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.5);
+}
+
+.jobs-hero h1 {
+    font-size: 42px;
+    color: #f5c542;
+    margin-bottom: 10px;
+}
+
+.jobs-hero p {
+    font-size: 18px;
+    opacity: 0.9;
+}
+
+/* JOBS LIST */
+.jobs-list {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* JOB CARD */
+.job-card {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 20px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(245,197,66,0.25);
+    border-radius: 16px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 25px rgba(0,0,0,0.5);
+    overflow: hidden;
+}
+
+.job-banner {
+    min-height: 180px;
     background-size: cover;
     background-position: center;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: flex-end;
-    padding: 18px;
-    color: white;
-    text-shadow: 0 0 12px #000;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.45);
-    transition: 0.3s ease;
-    cursor: pointer;
 }
 
-/* Hover effet premium */
-.card:hover {
-    transform: scale(1.07);
-    box-shadow: 0 12px 25px rgba(245, 197, 66, 0.35);
+/* IMAGES */
+.job-sdis { background-image: url('../assets/sdis44.jpg'); }
+.job-police { background-image: url('../assets/police.webp'); }
+.job-neolib { background-image: url('../assets/neolib.png'); }
+.job-mairie { background-image: url('../assets/mairie.png'); }
+.job-dir { background-image: url('../assets/dir.webp'); }
+
+.job-content {
+    padding: 20px 25px 25px 5px;
 }
 
-/* Gradient overlay */
-.card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.1));
-    z-index: 1;
+.job-content h2 {
+    font-size: 26px;
+    color: #f5c542;
+    margin-bottom: 5px;
 }
 
-.card h3 {
-    position: relative;
-    z-index: 2;
-    margin: 0;
-    font-size: 20px;
-    font-weight: 700;
+.job-tag {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-bottom: 12px;
 }
 
-/* ===== IMAGES ===== */
-.card-sdis { background-image: url('../assets/sdis44.jpg'); }
-.card-police { background-image: url('../assets/police.webp'); }
-.card-neolib { background-image: url('../assets/neolib.png'); }
-.card-mairie { background-image: url('../assets/mairie.png'); }
-.card-dir { background-image: url('../assets/dir.webp'); }
+.job-desc {
+    font-size: 16px;
+    margin-bottom: 15px;
+    opacity: 0.9;
+}
 
-/* ===== RESPONSIVE CARDS ===== */
-@media (max-width: 600px) {
-    .card {
-        width: 90%;
-        height: 150px;
+.job-content h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #f5c542;
+}
+
+.job-content ul {
+    list-style: none;
+    padding-left: 0;
+    font-size: 15px;
+}
+
+.job-content li::before {
+    content: "• ";
+    color: #f5c542;
+}
+
+/* RESPONSIVE */
+@media (max-width: 800px) {
+    .job-card {
+        grid-template-columns: 1fr;
     }
 
-    .card h3 {
-        font-size: 18px;
+    .job-content {
+        padding: 15px 18px 20px 18px;
+    }
+}
+
+@media (max-width: 500px) {
+    .jobs-hero-content {
+        padding: 30px 18px;
+    }
+
+    .jobs-hero h1 {
+        font-size: 32px;
     }
 }
