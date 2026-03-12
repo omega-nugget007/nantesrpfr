@@ -1,154 +1,138 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Candidature Staff</title>
-<link rel="stylesheet" href="css/candidatureStaff.css">
+    <meta charset="UTF-8">
+    <title>Candidature Staff - Nantes RP</title>
+    <link rel="stylesheet" href="css/candidatureStaff.css">
 </head>
-
 <body>
+
 <header>
-  <h2>Candidature Staff</h2>
+    <div class="nav-container">
+        <h1 class="logo">Nantes <span>RP</span></h1>
+
+        <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="menu-icon">&#9776;</label>
+
+        <nav class="navbar">
+            <a href="index.html">Accueil</a>
+            <a href="jobs.html">Métiers</a>
+            <a href="recrutements.html">Recrutements</a>
+            <a href="candidatureStaff.html" class="active">Devenir Testeur Roblox</a>
+            <a href="connexion.html">Connexion Staff</a>
+        </nav>
+    </div>
 </header>
 
-<main>
-  <h1>Postuler au Staff (1 candidatures par personnes)</h1>
+<section class="form-section">
 
-  <form id="staffForm">
+    <h2>Candidature Staff</h2>
 
-    
+    <form id="staffForm">
 
-    <label for="discordPseudo">Pseudo Discord :</label>
-    <input type="text" id="discordPseudo" placeholder="Ex: omega_nugget" required>
+        <input type="text" id="discordPseudo" placeholder="Pseudo Discord" required>
+        <input type="text" id="discordID" placeholder="ID Discord (ex: 123456789012345678)" required>
+        <input type="number" id="age" placeholder="Âge" required>
 
-    <label for="discordID">ID Discord :</label>
-    <input type="text" id="discordID" placeholder="Ex: 123456789012345678" required>
+        <select id="grade" required>
+            <option value="TESTEUR JEU ROBLOX">TESTEUR JEU ROBLOX</option>
+        </select>
 
-    <label for="age">Âge :</label>
-    <input type="number" id="age" min="10" max="100" required>
+        <textarea id="motivations" placeholder="Motivations" required></textarea>
+        <textarea id="experience" placeholder="Expérience" required></textarea>
 
-    <label for="grade">Poste souhaité :</label>
-    <select id="grade" required>
-      <option>TESTEUR JEU ROBLOX</option>
-    </select>
+        <div class="checkbox">
+            <input type="checkbox" id="rgpd" required>
+            <label for="rgpd">J'accepte que mes informations soient utilisées pour le recrutement staff.</label>
+        </div>
 
-    <label for="motivations">Motivations :</label>
-    <textarea id="motivations" rows="4" required></textarea>
+        <button type="submit">Envoyer ma candidature</button>
+    </form>
 
-    <label for="experience">Expérience :</label>
-    <textarea id="experience" rows="4" required></textarea>
+    <p id="message"></p>
+</section>
 
-    <div class="checkbox">
-      <input type="checkbox" id="rgpd" required>
-      <label for="rgpd">J'accepte que mes informations soient utilisées pour le recrutement staff.</label>
-    </div>
-
-    <button type="submit">Envoyer ma candidature</button>
-    <div id="message"></div>
-  </form>
-</main>
-
-<!-- 🔥 SCRIPT FIREBASE -->
+<!-- SCRIPT FIREBASE -->
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getFirestore, collection, addDoc, query, where, getDocs, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, query, where, getDocs, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyD639mBtKXqsyk8oNo9pHvoZfJbTyN8Dz8",
-    authDomain: "candidatures-staffs-nantesrp.firebaseapp.com",
-    projectId: "candidatures-staffs-nantesrp",
-    storageBucket: "candidatures-staffs-nantesrp.firebasestorage.app",
-    messagingSenderId: "831554643101",
-    appId: "1:831554643101:web:8f764468ee535628b5e074"
-  };
+    const firebaseConfig = {
+        apiKey: "AIzaSyD639mBtKXqsyk8oNo9pHvoZfJbTyN8Dz8",
+        authDomain: "candidatures-staffs-nantesrp.firebaseapp.com",
+        projectId: "candidatures-staffs-nantesrp",
+        storageBucket: "candidatures-staffs-nantesrp.firebasestorage.app",
+        messagingSenderId: "831554643101",
+        appId: "1:831554643101:web:8f764468ee535628b5e074"
+    };
 
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-  // 🔥 Vérifie si le joueur peut candidater
-  async function peutCandidater(discordID) {
-    const q = query(
-      collection(db, "candidatures_staff"),
-      where("discordID", "==", discordID),
-      orderBy("date", "desc"),
-      limit(1)
-    );
+    async function peutCandidater(discordID) {
+        const q = query(
+            collection(db, "candidatures_staff"),
+            where("discordID", "==", discordID),
+            orderBy("date", "desc"),
+            limit(1)
+        );
 
-    const snap = await getDocs(q);
+        const snap = await getDocs(q);
 
-    if (snap.empty) return { ok: true }; // aucune candidature → OK
+        if (snap.empty) return { ok: true };
 
-    const last = snap.docs[0].data();
+        const last = snap.docs[0].data();
 
-    // 🔥 1. Si déjà accepté → jamais autorisé
-    if (last.accepte === "true") {
-      return { ok: false, reason: "accepted" };
+        if (last.accepte === "true") return { ok: false, reason: "accepted" };
+        if (last.accepte === "N/A") return { ok: false, reason: "pending" };
+        if (last.accepte === "false") return { ok: true };
+
+        return { ok: true };
     }
 
-    // 🔥 2. Si en attente → doit attendre la réponse
-    if (last.accepte === "N/A") {
-      return { ok: false, reason: "pending" };
-    }
+    async function envoyerStaff() {
+        const age = document.getElementById("age").value;
+        const discordPseudo = document.getElementById("discordPseudo").value;
+        const discordID = document.getElementById("discordID").value;
+        const grade = document.getElementById("grade").value;
+        const motivations = document.getElementById("motivations").value;
+        const experience = document.getElementById("experience").value;
 
-    // 🔥 3. Si refusé → autorisé immédiatement
-    if (last.accepte === "false") {
-      return { ok: true };
-    }
+        const check = await peutCandidater(discordID);
 
-    return { ok: true };
-  }
+        if (!check.ok) {
+            if (check.reason === "accepted") {
+                document.getElementById("message").textContent =
+                    "❌ Vous avez déjà été accepté. Vous ne pouvez plus refaire une candidature staff.";
+            } else if (check.reason === "pending") {
+                document.getElementById("message").textContent =
+                    "❌ Votre candidature précédente est encore en attente. Merci de patienter.";
+            }
+            return;
+        }
 
-  // 🔥 Fonction d’envoi
-  async function envoyerStaff() {
-    const age = document.getElementById("age").value;
-    const discordPseudo = document.getElementById("discordPseudo").value;
-    const discordID = document.getElementById("discordID").value;
-    const grade = document.getElementById("grade").value;
-    const motivations = document.getElementById("motivations").value;
-    const experience = document.getElementById("experience").value;
+        await addDoc(collection(db, "candidatures_staff"), {
+            age,
+            discordPseudo,
+            discordID,
+            grade,
+            motivations,
+            experience,
+            typeRecrutement: "staff",
+            accepte: "N/A",
+            date: new Date()
+        });
 
-    // 🔥 Vérification anti-spam + anti-retry
-    const check = await peutCandidater(discordID);
-
-    if (!check.ok) {
-      if (check.reason === "accepted") {
         document.getElementById("message").textContent =
-          "❌ Vous avez déjà été accepté. Vous ne pouvez plus refaire une candidature staff.";
-      } else if (check.reason === "pending") {
-        document.getElementById("message").textContent =
-          "❌ Votre candidature précédente est encore en attente. Merci de patienter.";
-      }
-      return;
+            "Candidature envoyée avec succès !";
     }
 
-    // 🔥 Envoi dans Firebase
-    await addDoc(collection(db, "candidatures_staff"), {
-      age,
-      discordPseudo,
-      discordID,
-      grade,
-      motivations,
-      experience,
-      typeRecrutement: "staff",
-      accepte: "N/A",
-      date: new Date()
+    document.getElementById("staffForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        await envoyerStaff();
+        e.target.reset();
     });
-
-    document.getElementById("message").textContent =
-      "Candidature envoyée avec succès !";
-  }
-
-  // 🔥 Empêcher le rechargement
-  document.getElementById("staffForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    await envoyerStaff();
-    e.target.reset();
-  });
 </script>
-
-
-
 
 </body>
 </html>
