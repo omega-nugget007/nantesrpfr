@@ -22,14 +22,14 @@ body {
   padding: 35px;
   width: 360px;
   border-radius: 12px;
-  border: 1px solid #ff6600;
+  border: 1px solid #ffd900;
   box-shadow: 0 0 20px rgba(255, 102, 0, 0.25);
   text-align: center;
 }
 
 .login-container h2 {
   margin-bottom: 25px;
-  color: #ff6600;
+  color: #ffd000;
   font-size: 26px;
   font-weight: 700;
 }
@@ -48,7 +48,7 @@ input {
 }
 
 input:focus {
-  border-color: #ff6600;
+  border-color: #ffd900;
   outline: none;
   box-shadow: 0 0 8px rgba(255, 102, 0, 0.4);
 }
@@ -57,7 +57,7 @@ input:focus {
 button {
   width: 100%;
   padding: 14px;
-  background: #ff6600;
+  background: #ffc400;
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -67,7 +67,7 @@ button {
 }
 
 button:hover {
-  background: #e65c00;
+  background: #e6b000;
   box-shadow: 0 0 12px rgba(255, 102, 0, 0, 0.5);
 }
 
