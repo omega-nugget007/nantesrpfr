@@ -44,19 +44,6 @@ async function loadStats() {
         const res = await fetch(API_URL);
         const data = await res.json();
 
-        // ====== STATS GLOBALES ======
-        document.getElementById("gameName").textContent = data.name;
-        document.getElementById("playing").textContent = data.playing;
-
-        // Ces valeurs n'existent plus dans ton API → on met "N/A"
-        document.getElementById("visits").textContent = "N/A";
-        document.getElementById("favorites").textContent = "N/A";
-        document.getElementById("likes").textContent = "N/A";
-        document.getElementById("dislikes").textContent = "N/A";
-        document.getElementById("maxPlayers").textContent = "N/A";
-
-        document.getElementById("description").textContent = data.description || "Aucune description.";
-
         // ====== TEAMS ======
         const teamsContainer = document.getElementById("teams");
         teamsContainer.innerHTML = ""; // reset
