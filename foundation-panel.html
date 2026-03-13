@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Foundation Panel - Nantes RP</title>
+    <link rel="stylesheet" href="css/foundation-panel.css">
+</head>
+<body>
+
+<!-- 🔒 PROTECTION DU PANEL -->
+<script>
+const token = localStorage.getItem("sessionToken");
+const role = localStorage.getItem("userRole");
+
+// Pas connecté → retour login
+if (!token) {
+    window.location.href = "connexion.html";
+}
+
+// Pas fondateur → retour login
+if (role !== "fonda") {
+    window.location.href = "connexion.html";
+}
+</script>
+
+<header>
+    <div class="nav-container">
+        <h1 class="logo">Nantes <span>RP</span> — Foundation</h1>
+
+        <nav class="navbar">
+            <a href="index.html">Accueil</a>
+            <a href="admin-panel.html">Panel Admin</a>
+            <a href="moderator-panel.html">Panel Modérateur</a>
+            <a href="#" onclick="logout()">Déconnexion</a>
+        </nav>
+    </div>
+</header>
+
+<section class="panel-section">
+
+    <h2>Panel Fondateur</h2>
+    <p>Bienvenue Fondateur. Voici l’état complet de toutes les APIs du projet.</p>
+
+    <!-- 📡 ÉTAT DES APIs -->
+    <div class="api-status-card">
+        <h3>État des APIs</h3>
+
+        <ul id="apiStatusList">
+            <li>Chargement...</li>
+        </ul>
+    </div>
+
+</section>
+
+<script>
+// =============================
+// 🔌 LISTE DES APIs À VÉRIFIER
+// =============================
+const API_LIST = [
+    "https://api-roblox-checking.onrender.com",
+    "https://backend-candidatures-metiers-nantesrp.onrender.com",
+    "https://roblox-stats-api.onrender.com",
+    "https://roblox-admin-api.onrender.com",
+    "https://site-login-api.onrender.com"
+];
+
+// =============================
+// 📡 Vérification de l’état des APIs
+// =============================
+async function checkAPIs() {
+    const list = document.getElementById("apiStatusList");
+    list.innerHTML = "";
+
+    for (const api of API_LIST) {
+        const li = document.createElement("li");
+        li.textContent = `${api} → Vérification...`;
+        list.appendChild(li);
+
+        try {
+            const res = await fetch(api, { method: "GET" });
+
+            if (res.ok) {
+                li.textContent = `${api} → 🟢 En ligne (${res.status})`;
+                li.style.color = "green";
+            } else {
+                li.textContent = `${api} → 🟠 Répond mais erreur (${res.status})`;
+                li.style.color = "orange";
+            }
+
+        } catch (err) {
+            li.textContent = `${api} → 🔴 Hors ligne`;
+            li.style.color = "red";
+        }
+    }
+}
+
+checkAPIs();
+setInterval(checkAPIs, 10000); // Vérifie toutes les 10 sec
+
+// =============================
+// 🚪 Déconnexion
+// =============================
+function logout() {
+    localStorage.removeItem("sessionToken");
+    localStorage.removeItem("userRole");
+    window.location.href = "connexion.html";
+}
+</script>
+
+</body>
+</html>
