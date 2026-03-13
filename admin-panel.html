@@ -25,25 +25,9 @@
 
     <h2>Panel Administrateur</h2>
 
-    <!-- STATS -->
-    <div class="stats-card">
-        <h3 id="gameName">Chargement...</h3>
-
-        <p><strong>Joueurs Actuels :</strong> <span id="playing">...</span></p>
-        <p><strong>Visites :</strong> <span id="visits">...</span></p>
-        <p><strong>Favoris :</strong> <span id="favorites">...</span></p>
-        <p><strong>Likes :</strong> <span id="likes">...</span></p>
-        <p><strong>Dislikes :</strong> <span id="dislikes">...</span></p>
-        <p><strong>Max Joueurs :</strong> <span id="maxPlayers">...</span></p>
-        <p><strong>Description :</strong></p>
-        <p id="description" class="desc">...</p>
-    </div>
-
     <!-- COMMANDES -->
     <div class="commands-card">
         <h3>Commandes Admin</h3>
-
-        <button onclick="sendCommand('show_gui')">📌 Afficher un GUI</button>
 
         <textarea id="announceText" placeholder="Texte de l'annonce..."></textarea>
         <button onclick="sendAnnouncement()">📢 Envoyer une annonce</button>
@@ -55,70 +39,40 @@
 
 <script>
 // ====== CONFIG ======
-const UNIVERSE_ID = "TON_UNIVERSE_ID_ICI"; 
-const API_KEY = "TA_CLEF_API_ROBLOX"; // ← Mets ta clé API Roblox MessagingService ici
+const ADMIN_API = "https://roblox-admin-api.onrender.com/announce"; 
 
-// ====== STATS ======
-async function loadStats() {
-    const url = `https://games.roblox.com/v1/games?universeIds=${UNIVERSE_ID}`;
-    const res = await fetch(url);
-    const data = await res.json();
-    const game = data.data[0];
-
-    document.getElementById("gameName").textContent = game.name;
-    document.getElementById("playing").textContent = game.playing;
-    document.getElementById("visits").textContent = game.visits.toLocaleString();
-    document.getElementById("favorites").textContent = game.favoritedCount.toLocaleString();
-    document.getElementById("likes").textContent = game.likes;
-    document.getElementById("dislikes").textContent = game.dislikes;
-    document.getElementById("maxPlayers").textContent = game.maxPlayers;
-    document.getElementById("description").textContent = game.description || "Aucune description.";
-}
-
-loadStats();
-
-// ====== COMMANDES ADMIN ======
-async function sendCommand(cmd) {
-    const res = await fetch(
-        `https://apis.roblox.com/messaging-service/v1/universes/${UNIVERSE_ID}/topics/AdminCommand`,
-        {
-            method: "POST",
-            headers: {
-                "x-api-key": API_KEY,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                message: JSON.stringify({ command: cmd })
-            })
-        }
-    );
-
-    document.getElementById("cmdStatus").textContent =
-        res.ok ? "✔ Commande envoyée !" : "❌ Erreur lors de l'envoi.";
-}
-
+// ====== ANNONCES ======
 async function sendAnnouncement() {
     const text = document.getElementById("announceText").value;
 
-    const res = await fetch(
-        `https://apis.roblox.com/messaging-service/v1/universes/${UNIVERSE_ID}/topics/AdminCommand`,
-        {
-            method: "POST",
-            headers: {
-                "x-api-key": API_KEY,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                message: JSON.stringify({
-                    command: "announce",
-                    text: text
-                })
-            })
-        }
-    );
+    if (!text.trim()) {
+        document.getElementById("cmdStatus").textContent = "❌ Le texte est vide.";
+        return;
+    }
 
-    document.getElementById("cmdStatus").textContent =
-        res.ok ? "✔ Annonce envoyée !" : "❌ Erreur lors de l'envoi.";
+    try {
+        const res = await fetch(ADMIN_API, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                text: text,
+                senderUserId: 1,
+                senderName: "Admin Panel"
+            })
+        });
+
+        const data = await res.json();
+
+        if (data.status === "ok") {
+            document.getElementById("cmdStatus").textContent = "✔ Annonce envoyée !";
+        } else {
+            document.getElementById("cmdStatus").textContent = "❌ Erreur : " + data.error;
+        }
+
+    } catch (err) {
+        console.error(err);
+        document.getElementById("cmdStatus").textContent = "❌ Erreur API.";
+    }
 }
 </script>
 
