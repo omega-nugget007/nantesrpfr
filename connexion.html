@@ -20,32 +20,46 @@
 </div>
 
 <script>
-// Comptes autorisés
-const accounts = {
-    "moderator": {
-        password: "nantesrp2026",
-        redirect: "moderator-panel.html"
-    },
-    "admin": {
-        password: "nantesrp2025",
-        redirect: "admin-panel.html"
-    }
-};
-
+// Intercepter le formulaire pour éviter le rechargement de page
 document.getElementById("loginForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-
-    const user = document.getElementById("username").value.trim();
-    const pass = document.getElementById("password").value.trim();
-    const error = document.getElementById("errorMessage");
-
-    if (accounts[user] && accounts[user].password === pass) {
-        // Redirection selon le rôle
-        window.location.href = accounts[user].redirect;
-    } else {
-        error.textContent = "❌ Identifiants incorrects.";
-    }
+    e.preventDefault(); // Empêche le refresh
+    login(); // Lance la connexion
 });
+
+async function login() {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    try {
+        const res = await fetch("https://site-login-api.onrender.com/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password })
+        });
+
+        const data = await res.json();
+
+        if (data.status === "ok") {
+            // Stocker la session
+            localStorage.setItem("sessionToken", data.token);
+            localStorage.setItem("userRole", data.role);
+
+            // Redirection selon le rôle
+            if (data.role === "admin") {
+                window.location.href = "admin-panel.html";
+            } else {
+                window.location.href = "moderator-panel.html";
+            }
+
+        } else {
+            document.getElementById("errorMessage").textContent = "❌ Identifiants incorrects.";
+        }
+
+    } catch (err) {
+        console.error(err);
+        document.getElementById("errorMessage").textContent = "❌ Erreur de connexion au serveur.";
+    }
+}
 </script>
 
 </body>
