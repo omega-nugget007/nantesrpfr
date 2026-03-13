@@ -8,14 +8,20 @@
 <body>
 
 <script>
-// Vérifier si l'utilisateur est connecté
 const token = localStorage.getItem("sessionToken");
+const role = localStorage.getItem("userRole");
 
+// Pas connecté → retour login
 if (!token) {
-    // Pas de session → redirection
+    window.location.href = "connexion.html";
+}
+
+// Pas admin → retour login
+if (role !== "admin") {
     window.location.href = "connexion.html";
 }
 </script>
+
 
 
 <header>
