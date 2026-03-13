@@ -7,6 +7,17 @@
 </head>
 <body>
 
+<script>
+// Vérifier si l'utilisateur est connecté
+const token = localStorage.getItem("sessionToken");
+
+if (!token) {
+    // Pas de session → redirection
+    window.location.href = "connexion.html";
+}
+</script>
+
+
 <header>
     <div class="nav-container">
         <h1 class="logo">Nantes <span>RP</span></h1>
