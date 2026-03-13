@@ -22,13 +22,16 @@
 <script>
 // Intercepter le formulaire pour éviter le rechargement de page
 document.getElementById("loginForm").addEventListener("submit", function(e) {
-    e.preventDefault(); // Empêche le refresh
-    login(); // Lance la connexion
+    e.preventDefault();
+    login();
 });
 
 async function login() {
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const errorMessage = document.getElementById("errorMessage");
+
+    errorMessage.textContent = ""; // reset
 
     try {
         const res = await fetch("https://site-login-api.onrender.com/login", {
@@ -47,17 +50,19 @@ async function login() {
             // Redirection selon le rôle
             if (data.role === "admin") {
                 window.location.href = "admin-panel.html";
-            } else {
+            } else if (data.role === "moderator") {
                 window.location.href = "moderator-panel.html";
+            } else {
+                errorMessage.textContent = "❌ Rôle inconnu.";
             }
 
         } else {
-            document.getElementById("errorMessage").textContent = "❌ Identifiants incorrects.";
+            errorMessage.textContent = "❌ Identifiants incorrects.";
         }
 
     } catch (err) {
         console.error(err);
-        document.getElementById("errorMessage").textContent = "❌ Erreur de connexion au serveur.";
+        errorMessage.textContent = "❌ Impossible de contacter le serveur.";
     }
 }
 </script>
