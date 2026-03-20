@@ -98,7 +98,11 @@ header {
     align-items: center;
     text-align: center;
     animation: heroZoom 18s ease-in-out infinite alternate;
+    margin-top: 80px; /* espace pour le timer */
 }
+
+
+
 
 @keyframes heroZoom {
     from { background-size: 100%; }
@@ -245,7 +249,11 @@ section {
     margin-top: 40px;
     color: white;
     font-family: Arial, sans-serif;
+     margin-top: 40px;
+    margin-bottom: 40px; /* ajoute un espace avant le hero */
 }
+
+
 
 .countdown-container h2 {
     font-size: 28px;
