@@ -21,6 +21,19 @@
     </div>
 </header>
 
+<div class="countdown-container">
+    <h2>Ouverture de la early access dans :</h2>
+    <div id="countdown">
+        <span id="days">00</span>j
+        <span id="hours">00</span>h
+        <span id="minutes">00</span>m
+        <span id="seconds">00</span>s
+    </div>
+</div>
+
+
+    
+
 <!-- ================= HERO ================= -->
 <section class="hero">
     <div class="hero-content reveal">
@@ -96,6 +109,33 @@
     window.addEventListener("scroll", revealOnScroll);
     revealOnScroll();
 </script>
+
+    <script>
+function updateCountdown() {
+    const targetDate = new Date("April 4, 2026 00:00:00").getTime();
+    const now = new Date().getTime();
+    const diff = targetDate - now;
+
+    if (diff <= 0) {
+        document.getElementById("countdown").innerHTML = "Early Access commencée";
+        return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    document.getElementById("days").textContent = days.toString().padStart(2, "0");
+    document.getElementById("hours").textContent = hours.toString().padStart(2, "0");
+    document.getElementById("minutes").textContent = minutes.toString().padStart(2, "0");
+    document.getElementById("seconds").textContent = seconds.toString().padStart(2, "0");
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+</script>
+
 
 </body>
 </html>
