@@ -92,13 +92,12 @@ header {
 
 /* ===== HERO ===== */
 .hero {
-    height: 100vh;
+    min-height: calc(100vh - 180px); /* 180px = hauteur navbar + timer */
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     animation: heroZoom 18s ease-in-out infinite alternate;
-    margin-top: 40px;
 }
 
 
