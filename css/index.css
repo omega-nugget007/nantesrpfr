@@ -245,12 +245,14 @@ section {
 }
 
 .countdown-container {
+    position: absolute;
+    top: 120px; /* juste sous la navbar */
+    left: 50%;
+    transform: translateX(-50%);
     text-align: center;
-    margin-top: 40px;
     color: white;
     font-family: Arial, sans-serif;
-    margin-top: 40px;
-    margin-bottom: 40px;
+    z-index: 10;
 }
 
 
