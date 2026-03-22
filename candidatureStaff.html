@@ -95,6 +95,7 @@
         const grade = document.getElementById("grade").value;
         const motivations = document.getElementById("motivations").value;
         const experience = document.getElementById("experience").value;
+        const gradeClean = grade.replace(/\s+/g, "_").toUpperCase();
 
         const check = await peutCandidater(discordID);
 
@@ -109,17 +110,18 @@
             return;
         }
 
-        await addDoc(collection(db, "candidatures_staff"), {
-            age,
-            discordPseudo,
-            discordID,
-            grade,
-            motivations,
-            experience,
-            typeRecrutement: "staff",
-            accepte: "N/A",
-            date: new Date()
-        });
+        await addDoc(collection(db, `candidatureStaff/${gradeClean}`), {
+    age,
+    discordPseudo,
+    discordID,
+    grade,
+    motivations,
+    experience,
+    typeRecrutement: gradeClean,
+    accepte: "N/A",
+    date: new Date()
+});
+
 
         document.getElementById("message").textContent =
             "Candidature envoyée avec succès !";
