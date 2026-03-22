@@ -89,45 +89,47 @@
     }
 
     async function envoyerStaff() {
-        const age = document.getElementById("age").value;
-        const discordPseudo = document.getElementById("discordPseudo").value;
-        const discordID = document.getElementById("discordID").value;
-        const grade = document.getElementById("grade").value;
-        const motivations = document.getElementById("motivations").value;
-        const experience = document.getElementById("experience").value;
-        const gradeClean = grade.replace(/\s+/g, "_").toUpperCase();
+    const age = document.getElementById("age").value;
+    const discordPseudo = document.getElementById("discordPseudo").value;
+    const discordID = document.getElementById("discordID").value;
+    const grade = document.getElementById("grade").value;
+    const motivations = document.getElementById("motivations").value;
+    const experience = document.getElementById("experience").value;
+    const gradeClean = grade.replace(/\s+/g, "_").toUpperCase();
 
-        const check = await peutCandidater(discordID);
+    const check = await peutCandidater(discordID);
 
-        if (!check.ok) {
-            if (check.reason === "accepted") {
-                document.getElementById("message").textContent =
-                    "❌ Vous avez déjà été accepté. Vous ne pouvez plus refaire une candidature staff.";
-            } else if (check.reason === "pending") {
-                document.getElementById("message").textContent =
-                    "❌ Votre candidature précédente est encore en attente. Merci de patienter.";
-            }
-            return;
+    if (!check.ok) {
+        if (check.reason === "accepted") {
+            document.getElementById("message").textContent =
+                "❌ Vous avez déjà été accepté. Vous ne pouvez plus refaire une candidature staff.";
+        } else if (check.reason === "pending") {
+            document.getElementById("message").textContent =
+                "❌ Votre candidature précédente est encore en attente. Merci de patienter.";
         }
-
-        await addDoc(collection(db, "candidatureStaff", gradeClean), {
-
-
-                age,
-    discordPseudo,
-    discordID,
-    grade,
-    motivations,
-    experience,
-    typeRecrutement: gradeClean,
-    accepte: "N/A",
-    date: new Date()
-});
-
-
-        document.getElementById("message").textContent =
-            "Candidature envoyée avec succès !";
+        return;
     }
+
+    // 🔥 AJOUTE CES DEUX LIGNES ICI
+    console.log("GradeClean =", gradeClean);
+    console.log("Collection utilisée =", gradeClean);
+
+    await addDoc(collection(db, gradeClean), {
+        age,
+        discordPseudo,
+        discordID,
+        grade,
+        motivations,
+        experience,
+        typeRecrutement: gradeClean,
+        accepte: "N/A",
+        date: new Date()
+    });
+
+    document.getElementById("message").textContent =
+        "Candidature envoyée avec succès !";
+}
+
 
     document.getElementById("staffForm").addEventListener("submit", async (e) => {
         e.preventDefault();
