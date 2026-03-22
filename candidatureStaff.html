@@ -109,8 +109,9 @@
             }
             return;
         }
-        
-        await addDoc(collection(db, "candidatureStaff", gradeClean, "demandes"), {
+
+        await addDoc(collection(db, "candidatureStaff", gradeClean), {
+
 
                 age,
     discordPseudo,
