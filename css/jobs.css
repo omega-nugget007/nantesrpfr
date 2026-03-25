@@ -266,3 +266,66 @@ header {
     box-shadow: 0 0 18px rgba(245, 197, 66, 0.8);
 }
 
+
+.site-footer {
+  background: #111;
+  color: #eee;
+  padding: 40px 20px;
+  font-family: Arial, sans-serif;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 30px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.footer-section h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #fff;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin: 6px 0;
+}
+
+.footer-section a {
+  color: #bbb;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.footer-section a:hover {
+  color: #fff;
+}
+
+.socials a {
+  font-size: 22px;
+  margin-right: 10px;
+  color: #bbb;
+  transition: 0.2s;
+}
+
+.socials a:hover {
+  color: #fff;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 15px;
+  border-top: 1px solid #333;
+  font-size: 14px;
+  color: #aaa;
+}
+
+
